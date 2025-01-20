@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Nav from "@/components/nav";
 
 import "./globals.css";
 
@@ -15,7 +14,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col items-center justify-center pt-24">
-        <Nav />
         {children}
       </body>
     </html>
