@@ -1,5 +1,6 @@
 import Database from "better-sqlite3";
 import path from "path";
+import dayjs from "dayjs";
 
 const dbPath = path.join(process.cwd(), "public", "data.db");
 let db: Database.Database;
@@ -47,7 +48,9 @@ export function getAllBlogs() {
             'created_at', created_at
           )
         ) as blogs
-      FROM blogs 
+      FROM (
+        SELECT * FROM blogs ORDER BY created_at DESC
+      )
       GROUP BY category
       ORDER BY category ASC
     `);
@@ -61,7 +64,12 @@ export function getAllBlogs() {
     // 解析每个分组中的 blogs JSON 字符串
     return results.map((group) => ({
       category: group.category,
-      blogs: JSON.parse(group.blogs),
+      blogs: JSON.parse(group.blogs).map((blog: BlogItem) => ({
+        ...blog,
+        created_at: dayjs(blog.created_at)
+          .add(8, "hour")
+          .format("YYYY-MM-DD HH:mm:ss"),
+      })),
     }));
   } catch (error) {
     console.error("获取博客列表失败:", error);
@@ -79,7 +87,13 @@ export interface BlogItem {
 
 export function getBlogById(id: string) {
   const stmt = db.prepare("SELECT * FROM blogs WHERE id = ?");
-  return stmt.get(id) as BlogItem;
+  const blog = stmt.get(id) as BlogItem;
+  if (blog) {
+    blog.created_at = dayjs(blog.created_at)
+      .add(8, "hour")
+      .format("YYYY-MM-DD HH:mm:ss");
+  }
+  return blog;
 }
 
 export default db;

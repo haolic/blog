@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -71,13 +72,16 @@ export default function BlogAdd() {
 
       const data = await response.json();
       if (data.success) {
-        alert("发布成功！");
-        router.push("/blog");
+        toast("发布成功");
+        setTimeout(() => {
+          router.push("/blog");
+        }, 1000);
       } else {
         throw new Error(data.error || "发布失败");
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : "发布失败，请重试");
+      console.error(error);
+      toast("发布失败");
     } finally {
       setIsSubmitting(false);
     }

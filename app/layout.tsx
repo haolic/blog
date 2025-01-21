@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col items-center justify-center">
         {children}
+        <Toaster />
       </body>
     </html>
   );
