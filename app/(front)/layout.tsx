@@ -12,9 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="pt-24 w-full flex flex-col items-center">
       <Nav />
       {children}
-    </>
+    </div>
   );
 }

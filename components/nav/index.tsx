@@ -4,28 +4,40 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const navList = [
+  {
+    name: "Home",
+    path: "/home",
+  },
+  {
+    name: "项目",
+    path: "/project",
+  },
+  {
+    name: "Blog",
+    path: "/blog",
+  },
+];
+
 export default function Nav() {
   const pathname = usePathname();
+
+  let pathnameValue = pathname;
+  const navItem = navList.find((item) => pathnameValue.includes(item.path));
+  if (navItem) {
+    pathnameValue = navItem.path;
+  }
+
   return (
-    <Tabs value={pathname} className="fixed top-6">
+    <Tabs value={pathnameValue} className="fixed top-6">
       <TabsList>
-        <Link href="/home">
-          <TabsTrigger value="/home" className="min-w-24">
-            Home
-          </TabsTrigger>
-        </Link>
-
-        <Link href="/project">
-          <TabsTrigger value="/project" className="min-w-24">
-            项目
-          </TabsTrigger>
-        </Link>
-
-        <Link href="/blog">
-          <TabsTrigger value="/blog" className="min-w-24">
-            Blog
-          </TabsTrigger>
-        </Link>
+        {navList.map((item) => (
+          <Link href={item.path} key={item.path}>
+            <TabsTrigger value={item.path} className="min-w-24">
+              {item.name}
+            </TabsTrigger>
+          </Link>
+        ))}
       </TabsList>
     </Tabs>
   );
