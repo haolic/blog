@@ -7,8 +7,9 @@ export default function BasicInfo() {
   return (
     <motion.div
       className="relative"
-      initial={{ opacity: 0, top: 5 }}
+      initial={{ opacity: 0, top: 10 }}
       animate={{ opacity: 1, top: 0 }}
+      transition={{ duration: 1 }}
     >
       <div className="space-y-1">
         <h3 className="text-3xl font-medium leading-none">Haolic</h3>

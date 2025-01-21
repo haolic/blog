@@ -24,6 +24,10 @@ export default function Avatar() {
           x: 0,
           y: 0,
         }}
+        transition={{
+          duration: 0.5,
+          ease: "backOut",
+        }}
       >
         <Image
           src="/avatar.jpg"
