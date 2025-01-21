@@ -8,6 +8,7 @@ import Link from "next/link";
 import { getAllBlogs } from "@/lib/db";
 import AddSvg from "@/components/icons/AddSvg";
 import { cn } from "@/lib/utils";
+import dayjs from "dayjs";
 
 export default async function BlogPage() {
   const blogs = await getAllBlogs();
@@ -38,14 +39,21 @@ export default async function BlogPage() {
                       <Link
                         href={`/blog/${blogItem.id}`}
                         key={blogItem.id}
-                        className={cn("block px-6", {
-                          "mt-6": index !== 0,
-                        })}
+                        className={cn(
+                          "block px-6 hover:decoration-gray-500 hover:underline",
+                          {
+                            "mt-6": index !== 0,
+                          }
+                        )}
                       >
                         <div className="flex justify-between items-center text-gray-500 font-[God-FangSongGBK-free]">
                           <div>{blogItem.title}</div>
                           <div className="border-b border-dashed border-gray-100 flex-1 mx-6"></div>
-                          <div>{blogItem.created_at}</div>
+                          <div>
+                            {dayjs(blogItem.created_at).format(
+                              "YYYY-MM-DD HH:mm"
+                            )}
+                          </div>
                         </div>
                       </Link>
                     );
