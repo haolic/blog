@@ -24,9 +24,9 @@ const processContent = (content: string) => {
 export default async function BlogDetail({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const id = await params.id;
+  const id = (await params).id;
   const blog: BlogItem = await getBlogById(id);
   const processedContent = blog?.content ? processContent(blog.content) : '';
 
