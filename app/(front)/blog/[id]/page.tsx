@@ -1,4 +1,4 @@
-import { BlogItem, getBlogById } from "@/lib/db";
+import { getBlogById } from "@/lib/db";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { cn } from "@/lib/utils";
 import rehypeRaw from "rehype-raw";
@@ -21,7 +21,7 @@ export default async function BlogDetail({
   params: Promise<{ id: string }>;
 }) {
   const id = (await params).id;
-  const blog: BlogItem = await getBlogById(id);
+  const blog = await getBlogById(id);
   const processedContent = blog?.content ? processContent(blog.content) : "";
 
   const category = blog?.category;
