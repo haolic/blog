@@ -59,10 +59,9 @@ export async function getAllBlogs() {
       GROUP BY category
       ORDER BY category ASC
     `;
-
     return result.rows.map((row) => ({
       category: row.category as string,
-      blogs: (JSON.parse(row.blogs) as BlogItem[]).map((blog) => ({
+      blogs: (row.blogs as BlogItem[]).map((blog) => ({
         ...blog,
         created_at: dayjs(blog.created_at)
           .add(8, "hour")
