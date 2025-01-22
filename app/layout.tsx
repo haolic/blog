@@ -16,6 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="https://static.zeoseven.com/zsft/22/main/result.css" />
+      </head>
       <body className="flex flex-col items-center justify-center">
         <ThemeProvider
           attribute="class"

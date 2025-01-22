@@ -7,11 +7,6 @@
   src: url("https://fonts.gstatic.com/s/inter/v2/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2");
 }
 
-@font-face {
-  font-family: "God-FangSongGBK-free";
-  src: url("/God-FangSongGBK-free.ttf");
-}
-
 body {
   font-family: Inter, Arial, Helvetica, 'PingFang SC', sans-serif;
 }
