@@ -29,7 +29,7 @@ export default function Nav() {
   }
 
   return (
-    <Tabs value={pathnameValue} className="fixed top-6">
+    <Tabs value={pathnameValue} className="fixed top-6 z-[99]">
       <TabsList>
         {navList.map((item) => (
           <Link href={item.path} key={item.path}>

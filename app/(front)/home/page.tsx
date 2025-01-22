@@ -1,5 +1,6 @@
 import BasicInfo from "./BasicInfo";
 import Avatar from "./Avatar";
+import Squares from "@/components/Squares";
 
 export default function HomePage() {
   return (
@@ -7,6 +8,8 @@ export default function HomePage() {
       <Avatar />
 
       <BasicInfo />
+
+      <Squares />
     </div>
   );
 }

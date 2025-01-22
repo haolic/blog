@@ -9,7 +9,7 @@ export default function Avatar() {
   return (
     <motion.div
       ref={constraintsRef}
-      className="w-[300px] h-[300px] rounded-full bg-opacity-10 bg-gray-400"
+      className="relative z-[3] w-[300px] h-[300px] rounded-full bg-opacity-10 bg-gray-400"
     >
       <motion.div
         drag

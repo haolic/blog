@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 export default function BasicInfo() {
   return (
     <motion.div
-      className="relative"
+      className="relative z-[2]"
       initial={{ opacity: 0, top: 10 }}
       animate={{ opacity: 1, top: 0 }}
       transition={{ duration: 1 }}
