@@ -16,15 +16,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
 import { useRouter } from "next/navigation";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import Link from "next/link";
@@ -117,25 +112,57 @@ export default function BlogAdd() {
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem className="w-48">
+              <FormItem className="space-y-3">
                 <FormLabel>分类</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="选择分类" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="赶路">赶路</SelectItem>
-                    <SelectItem value="墨者无疆">墨者无疆</SelectItem>
-                    <SelectItem value="过往->当下">{"过往->当下"}</SelectItem>
-                  </SelectContent>
-                </Select>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="赶路" />
+                      </FormControl>
+                      <FormLabel className="font-normal">赶路</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="墨者无疆" />
+                      </FormControl>
+                      <FormLabel className="font-normal">墨者无疆</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="过往->当下" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        {"过往->当下"}
+                      </FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
                 <FormMessage />
               </FormItem>
+              // <FormItem className="w-48">
+              //   <FormLabel>分类</FormLabel>
+              //   <Select
+              //     onValueChange={field.onChange}
+              //     defaultValue={field.value}
+              //   >
+              //     <FormControl>
+              //       <SelectTrigger>
+              //         <SelectValue placeholder="选择分类" />
+              //       </SelectTrigger>
+              //     </FormControl>
+              //     <SelectContent>
+              //       <SelectItem value="赶路">赶路</SelectItem>
+              //       <SelectItem value="墨者无疆">墨者无疆</SelectItem>
+              //       <SelectItem value="过往->当下">{"过往->当下"}</SelectItem>
+              //     </SelectContent>
+              //   </Select>
+              //   <FormMessage />
+              // </FormItem>
             )}
           />
           <FormField

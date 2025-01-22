@@ -34,8 +34,8 @@ const projectData: IProjectItem[] = [
   },
   {
     title: "酒工哥劳务",
-    url: "https://www.jiuworker.com/labor",
-    subTitle: "劳务派遣、劳务外包、人力资源服务",
+    url: "https://labor.jiuworker.com",
+    subTitle: "灵活用工、劳务派遣、劳务外包、人力资源服务",
     description: "酒工哥劳务派遣平台，为企业提供专业的劳务派遣、劳务外包、人力资源服务等一站式人力资源解决方案。平台采用现代化的管理理念和先进的信息技术，实现了劳务派遣全流程的数字化管理，包括人员招聘、入职管理、考勤管理、薪资结算等功能。",
     technologStack: ["Nextjs", "TypeScript", "React", "Tailwindcss"],
     achievement: "服务企业客户100+，管理派遣人员1000+"
