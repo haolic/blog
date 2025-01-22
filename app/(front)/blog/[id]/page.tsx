@@ -60,17 +60,23 @@ export default async function BlogDetail({
           {blog?.category} | {blog?.created_at}
         </div>
       </div>
-      <div className="mdx-wrap">
-        <MDXRemote
-          source={processedContent}
-          options={{
-            parseFrontmatter: false,
-            mdxOptions: {
-              rehypePlugins: [rehypeRaw],
-            },
-          }}
-        />
-      </div>
+      {category !== "墨者无疆" ? (
+        <div className="mdx-wrap">
+          <MDXRemote
+            source={processedContent}
+            options={{
+              parseFrontmatter: false,
+              mdxOptions: {
+                rehypePlugins: [rehypeRaw],
+              },
+            }}
+          />
+        </div>
+      ) : (
+        <div className="text-center text-xl font-bold whitespace-pre-wrap leading-10">
+          {processedContent}
+        </div>
+      )}
     </div>
   );
 }

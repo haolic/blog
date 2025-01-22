@@ -14,16 +14,16 @@ export default function BasicInfo() {
       >
         <div className="space-y-1">
           <h3 className="text-3xl font-medium leading-none">Haolic</h3>
-          <p className="text-sm text-muted-foreground">WEB开发工程师</p>
+          <p className="text-sm">WEB开发工程师</p>
         </div>
-        <Separator className="my-4" />
+        <Separator className="my-4 bg-ring" />
         <div className="flex h-5 items-center space-x-4 text-sm">
           <div>男</div>
-          <Separator orientation="vertical" />
+          <Separator orientation="vertical" className="bg-ring" />
           <div>7年前端</div>
-          <Separator orientation="vertical" />
+          <Separator orientation="vertical" className="bg-ring" />
           <div>faruxue2019@163.com</div>
-          <Separator orientation="vertical" />
+          <Separator orientation="vertical" className="bg-ring" />
           <div>React、Next.js、TypeScript、Node.js</div>
         </div>
       </motion.div>

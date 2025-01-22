@@ -15,7 +15,7 @@ export default function Avatar() {
         drag
         dragConstraints={constraintsRef}
         dragElastic={0.2}
-        className="relative rounded-full w-[200px] h-[200px]"
+        className="relative rounded-full overflow-hidden w-[200px] h-[200px] cursor-grab active:cursor-grabbing"
         animate={{
           x: 100,
           y: 100,
@@ -34,7 +34,7 @@ export default function Avatar() {
           alt="avatar"
           width={200}
           height={200}
-          className="rounded-full pointer-events-none"
+          className="pointer-events-none"
         />
       </motion.div>
     </motion.div>
