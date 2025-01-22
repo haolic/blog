@@ -46,7 +46,7 @@ export default async function BlogPage() {
                           }
                         )}
                       >
-                        <div className="flex justify-between items-center text-gray-500 font-[God-FangSongGBK-free]">
+                        <div className="flex justify-between items-center text-gray-500 font-styleFont">
                           <div>{blogItem.title}</div>
                           <div className="border-b border-dashed border-gray-400 flex-1 mx-6 opacity-20"></div>
                           <div>

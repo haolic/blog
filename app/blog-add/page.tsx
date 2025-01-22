@@ -90,7 +90,7 @@ export default function BlogAdd() {
   };
 
   return (
-    <div className="font-[God-FangSongGBK-free] w-full mx-auto p-6">
+    <div className="font-styleFont w-full mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Link href="/blog">
           <BackSvg />

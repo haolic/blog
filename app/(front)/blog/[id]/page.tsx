@@ -34,7 +34,7 @@ export default async function BlogDetail({
 
   return (
     <div
-      className={cn("max-w-[800px] mx-auto p-6 font-[God-FangSongGBK-free]", {
+      className={cn("max-w-[800px] mx-auto p-6 font-styleFont", {
         "w-full": category !== "墨者无疆",
         "text-center": category === "墨者无疆",
       })}
