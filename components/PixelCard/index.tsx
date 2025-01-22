@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 interface PixelProps {
@@ -194,7 +196,7 @@ export default function PixelCard({
   const animationRef = useRef<number | null>(null);
   const timePreviousRef = useRef<number>(performance.now());
   const reducedMotion = useRef(
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    window?.matchMedia("(prefers-reduced-motion: reduce)").matches
   ).current;
 
   const variantCfg = VARIANTS[variant];
@@ -344,7 +346,7 @@ export default function PixelCard({
   return (
     <div
       ref={containerRef}
-      className={`w-[188px] h-auto relative overflow-hidden grid place-items-center aspect-[4/5] rounded-[25px] isolate transition-colors duration-200 ease-[cubic-bezier(0.5,1,0.89,1)] select-none ${className}`}
+      className={`w-[188px] h-auto relative overflow-hidden grid place-items-center aspect-[4/5] rounded-[25px] isolate transition-colors duration-200 select-none ${className}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onFocus={finalNoFocus ? undefined : onFocus}

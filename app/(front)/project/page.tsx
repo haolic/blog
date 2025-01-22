@@ -1,6 +1,8 @@
 import ProjectItem from "./ProjectItem";
 import projectData from "./projectData";
 
+export const dynamic = 'force-dynamic';
+
 export default function ProjectPage() {
   return (
     <div className="w-[800px] p-6">
