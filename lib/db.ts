@@ -33,6 +33,14 @@ export async function addBlog(title: string, content: string, category: string) 
   }
 }
 
+export interface BlogItem {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  created_at: string;
+}
+
 export async function getAllBlogs() {
   try {
     const result = await sql`
@@ -52,9 +60,9 @@ export async function getAllBlogs() {
       ORDER BY category ASC
     `;
 
-    return result.rows.map((group: any) => ({
-      category: group.category,
-      blogs: group.blogs.map((blog: BlogItem) => ({
+    return result.rows.map((row) => ({
+      category: row.category as string,
+      blogs: (JSON.parse(row.blogs) as BlogItem[]).map((blog) => ({
         ...blog,
         created_at: dayjs(blog.created_at)
           .add(8, "hour")
@@ -65,14 +73,6 @@ export async function getAllBlogs() {
     console.error("获取博客列表失败:", error);
     return [];
   }
-}
-
-export interface BlogItem {
-  id: string;
-  title: string;
-  content: string;
-  category: string;
-  created_at: string;
 }
 
 export async function getBlogById(id: string) {
