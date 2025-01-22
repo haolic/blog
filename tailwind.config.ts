@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
-    content: [
+  darkMode: ["class"],
+  content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,10 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        styleFont: [
-          '"LXGW Neo ZhiSong"',
-          "sans-serif",
-        ],
+        styleFont: ['"LXGW Neo ZhiSong"', "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
