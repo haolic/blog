@@ -1,12 +1,12 @@
 import ProjectItem from "./ProjectItem";
+import projectData from "./projectData";
 
 export default function ProjectPage() {
   return (
-    <div className="max-w-[700px] p-6">
-      <ProjectItem index={0} />
-      <ProjectItem index={1} />
-      <ProjectItem index={2} />
-      <ProjectItem index={3} />
+    <div className="w-[800px] p-6">
+      {projectData.map((item, index) => {
+        return <ProjectItem index={index} key={index} data={item} />;
+      })}
     </div>
   );
 }
