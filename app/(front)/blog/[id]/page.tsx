@@ -22,6 +22,7 @@ export default async function BlogDetail({
 }) {
   const id = (await params).id;
   const blog = await getBlogById(id);
+
   const processedContent = blog?.content ? processContent(blog.content) : "";
 
   const category = blog?.category;
