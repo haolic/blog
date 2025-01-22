@@ -2,7 +2,7 @@ import { BlogItem, getBlogById } from "@/lib/db";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import rehypeRaw from 'rehype-raw';
+import rehypeRaw from "rehype-raw";
 import {
   Tooltip,
   TooltipContent,
@@ -17,7 +17,7 @@ import "./mdxReset.css";
 const processContent = (content: string) => {
   // 使用正则表达式匹配不在代码块内的内容
   return content.replace(/(?<!```[\s\S]*?)([<>])(?![\s\S]*?```)/g, (match) => {
-    return match === '<' ? '&lt;' : '&gt;';
+    return match === "<" ? "&lt;" : "&gt;";
   });
 };
 
@@ -28,7 +28,7 @@ export default async function BlogDetail({
 }) {
   const id = (await params).id;
   const blog: BlogItem = await getBlogById(id);
-  const processedContent = blog?.content ? processContent(blog.content) : '';
+  const processedContent = blog?.content ? processContent(blog.content) : "";
 
   const category = blog?.category;
 
@@ -61,8 +61,8 @@ export default async function BlogDetail({
         </div>
       </div>
       <div className="mdx-wrap">
-        <MDXRemote 
-          source={processedContent} 
+        <MDXRemote
+          source={processedContent}
           options={{
             parseFrontmatter: false,
             mdxOptions: {

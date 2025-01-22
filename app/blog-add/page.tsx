@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -143,11 +144,20 @@ export default function BlogAdd() {
             render={({ field }) => {
               return (
                 <FormItem className="flex-1">
-                  <FormLabel>内容</FormLabel>
+                  <FormLabel>内容（Markdown）</FormLabel>
                   <FormControl>
                     <Textarea placeholder="输入内容" {...field} rows={15} />
                   </FormControl>
                   <FormMessage />
+                  <FormDescription>
+                    <a
+                      href="https://daringfireball.net/projects/markdown/syntax"
+                      target="_blank"
+                      className="underline"
+                    >
+                      查看markdown语法
+                    </a>
+                  </FormDescription>
                 </FormItem>
               );
             }}
