@@ -20,8 +20,6 @@ export default function BasicInfo() {
         <div className="flex h-5 items-center space-x-4 text-sm">
           <div>男</div>
           <Separator orientation="vertical" className="bg-ring" />
-          <div>7年前端</div>
-          <Separator orientation="vertical" className="bg-ring" />
           <div>faruxue2019@163.com</div>
           <Separator orientation="vertical" className="bg-ring" />
           <div>React、Next.js、TypeScript、Node.js</div>

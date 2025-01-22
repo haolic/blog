@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
-import { addBlog } from '@/lib/db';
+import { addBlog, initDB } from '@/lib/db';
 
 export async function POST(request: Request) {
   try {
+    // 确保数据库表已创建
+    await initDB();
+    
     const { title, content, category } = await request.json();
     
     if (!title || !content) {
@@ -12,9 +15,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const result = addBlog(title, content, category);
+    const result = await addBlog(title, content, category);
     
-    return NextResponse.json({ success: true, id: result.lastInsertRowid });
+    return NextResponse.json({ success: true, id: result.id });
   } catch (error) {
     console.error('添加博客失败:', error);
     return NextResponse.json(

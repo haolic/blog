@@ -1,70 +1,60 @@
-import Database from "better-sqlite3";
-import path from "path";
+import { sql } from '@vercel/postgres';
 import dayjs from "dayjs";
 
-const dbPath = path.join(process.cwd(), "public", "data.db");
-let db: Database.Database;
-
-try {
-  db = new Database(dbPath);
-  // 初始化数据库表
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS blogs (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      content TEXT NOT NULL,
-      category TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
-} catch (error) {
-  console.error("数据库连接失败:", error);
-  throw new Error("数据库连接失败");
+// 初始化数据库表
+export async function initDB() {
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS blogs (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        category TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+  } catch (error) {
+    console.error("数据库初始化失败:", error);
+    throw new Error("数据库初始化失败");
+  }
 }
 
-export function addBlog(title: string, content: string, category: string) {
+export async function addBlog(title: string, content: string, category: string) {
   try {
-    const stmt = db.prepare(
-      "INSERT INTO blogs (title, content, category) VALUES (?, ?, ?)"
-    );
-    return stmt.run(title, content, category);
+    const result = await sql`
+      INSERT INTO blogs (title, content, category)
+      VALUES (${title}, ${content}, ${category})
+      RETURNING id
+    `;
+    return result.rows[0];
   } catch (error) {
     console.error("添加博客失败:", error);
     throw new Error("添加博客失败");
   }
 }
 
-export function getAllBlogs() {
+export async function getAllBlogs() {
   try {
-    const stmt = db.prepare(`
+    const result = await sql`
       SELECT 
         category,
-        json_group_array(
-          json_object(
+        json_agg(
+          json_build_object(
             'id', id,
             'title', title,
             'content', content,
             'category', category,
             'created_at', created_at
-          )
+          ) ORDER BY created_at DESC
         ) as blogs
-      FROM (
-        SELECT * FROM blogs ORDER BY created_at DESC
-      )
+      FROM blogs
       GROUP BY category
       ORDER BY category ASC
-    `);
+    `;
 
-    interface BlogGroup {
-      category: string;
-      blogs: string;
-    }
-
-    const results = stmt.all() as BlogGroup[];
-    // 解析每个分组中的 blogs JSON 字符串
-    return results.map((group) => ({
+    return result.rows.map((group: any) => ({
       category: group.category,
-      blogs: JSON.parse(group.blogs).map((blog: BlogItem) => ({
+      blogs: group.blogs.map((blog: BlogItem) => ({
         ...blog,
         created_at: dayjs(blog.created_at)
           .add(8, "hour")
@@ -85,15 +75,20 @@ export interface BlogItem {
   created_at: string;
 }
 
-export function getBlogById(id: string) {
-  const stmt = db.prepare("SELECT * FROM blogs WHERE id = ?");
-  const blog = stmt.get(id) as BlogItem;
-  if (blog) {
-    blog.created_at = dayjs(blog.created_at)
-      .add(8, "hour")
-      .format("YYYY-MM-DD HH:mm:ss");
+export async function getBlogById(id: string) {
+  try {
+    const result = await sql`
+      SELECT * FROM blogs WHERE id = ${id}
+    `;
+    const blog = result.rows[0] as BlogItem;
+    if (blog) {
+      blog.created_at = dayjs(blog.created_at)
+        .add(8, "hour")
+        .format("YYYY-MM-DD HH:mm:ss");
+    }
+    return blog;
+  } catch (error) {
+    console.error("获取博客失败:", error);
+    return null;
   }
-  return blog;
 }
-
-export default db;
