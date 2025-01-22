@@ -1,14 +1,8 @@
 import { BlogItem, getBlogById } from "@/lib/db";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import rehypeRaw from "rehype-raw";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import BackSvg from "@/components/icons/BackSvg";
 
 import "./mdxReset.css";
@@ -39,20 +33,7 @@ export default async function BlogDetail({
         "text-center": category === "墨者无疆",
       })}
     >
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="fixed top-6 left-6">
-              <Link href="/blog">
-                <BackSvg />
-              </Link>
-            </div>
-          </TooltipTrigger>
-          <TooltipContent side="right">
-            <p>返回</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <BackSvg href="/blog" className="fixed top-6 left-6" />
 
       <div className="text-2xl font-bold mb-6">
         <div>{blog?.title}</div>
@@ -60,23 +41,21 @@ export default async function BlogDetail({
           {blog?.category} | {blog?.created_at}
         </div>
       </div>
-      {category !== "墨者无疆" ? (
-        <div className="mdx-wrap">
-          <MDXRemote
-            source={processedContent}
-            options={{
-              parseFrontmatter: false,
-              mdxOptions: {
-                rehypePlugins: [rehypeRaw],
-              },
-            }}
-          />
-        </div>
-      ) : (
-        <div className="text-center text-xl font-bold whitespace-pre-wrap leading-10">
-          {processedContent}
-        </div>
-      )}
+      <div
+        className={cn("mdx-wrap", {
+          "text-xl font-bold": category === "墨者无疆",
+        })}
+      >
+        <MDXRemote
+          source={processedContent}
+          options={{
+            parseFrontmatter: false,
+            mdxOptions: {
+              rehypePlugins: [rehypeRaw],
+            },
+          }}
+        />
+      </div>
     </div>
   );
 }
