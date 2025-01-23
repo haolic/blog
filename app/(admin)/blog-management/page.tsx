@@ -75,7 +75,7 @@ export default function BlogManagement() {
 
   const handleRestore = async (id: string) => {
     try {
-      const response = await fetch(`/api/blog/${id}`, {
+      const response = await fetch(`/api/blog/restore/${id}`, {
         method: "PATCH",
       });
       const data = await response.json();
@@ -151,7 +151,7 @@ export default function BlogManagement() {
                     handleCategoryChange(blog.id, value)
                   }
                 >
-                  <SelectTrigger className="w-30 h-7 border-none shadow-none">
+                  <SelectTrigger className="w-48 h-7 border-none shadow-none">
                     <SelectValue placeholder="选择分类" />
                   </SelectTrigger>
                   <SelectContent>
@@ -173,12 +173,29 @@ export default function BlogManagement() {
               </TableCell>
               <TableCell>
                 {blog.delete ? (
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => handleRestore(blog.id)}
-                  >
-                    恢复
-                  </span>
+                  <AlertDialog>
+                    <AlertDialogTrigger className="text-green-500">
+                      恢复  
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          确定要恢复这篇博客吗？
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          确定要恢复这篇博客吗？恢复后将可以正常访问。
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>取消</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleRestore(blog.id)}
+                        >
+                          恢复
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 ) : (
                   <AlertDialog>
                     <AlertDialogTrigger className="text-red-500">

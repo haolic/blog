@@ -6,7 +6,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = params.id;
+    const id = (await params).id;
     
     if (!id) {
       return NextResponse.json(
@@ -32,7 +32,7 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = params.id;
+    const id = (await params).id;
     
     if (!id) {
       return NextResponse.json(
@@ -40,7 +40,6 @@ export async function PATCH(
         { status: 400 }
       );
     }
-
     const { category } = await request.json();
 
     if (category) {
