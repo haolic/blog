@@ -31,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import BackSvg from "@/components/icons/BackSvg";
 
 const CATEGORIES = ["赶路", "墨者无疆", "过往->当下"];
 
@@ -114,7 +115,10 @@ export default function BlogManagement() {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-6">博客管理</h1>
+      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
+        <BackSvg href="/blog" />
+        博客管理
+      </h1>
       <Table>
         <TableHeader>
           <TableRow>
