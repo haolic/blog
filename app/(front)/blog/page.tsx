@@ -14,7 +14,6 @@ import dayjs from "dayjs";
 
 export default async function BlogPage() {
   const blogs = await getAllBlogs();
-  console.log(blogs);
   return (
     <div className="w-[700px]">
       <Accordion
