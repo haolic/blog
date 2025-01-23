@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { sql } from "@vercel/postgres";
 import dayjs from "dayjs";
 
 // 初始化数据库表
@@ -19,7 +19,11 @@ export async function initDB() {
   }
 }
 
-export async function addBlog(title: string, content: string, category: string) {
+export async function addBlog(
+  title: string,
+  content: string,
+  category: string
+) {
   try {
     const result = await sql`
       INSERT INTO blogs (title, content, category)
@@ -39,6 +43,7 @@ export interface BlogItem {
   content: string;
   category: string;
   created_at: string;
+  delete: boolean;
 }
 
 export async function getAllBlogs() {
@@ -90,5 +95,67 @@ export async function getBlogById(id: string) {
   } catch (error) {
     console.error("获取博客失败:", error);
     return null;
+  }
+}
+
+export async function getAllBlogsFlatten() {
+  try {
+    const result = await sql`
+      SELECT * FROM blogs order by created_at desc
+    `;
+    const blogs = result.rows as BlogItem[];
+    if (blogs?.length) {
+      blogs.forEach((blog) => {
+        blog.created_at = dayjs(blog.created_at)
+          .add(8, "hour")
+          .format("YYYY-MM-DD HH:mm:ss");
+      });
+    }
+    return blogs;
+  } catch (error) {
+    console.error("获取博客失败:", error);
+    return null;
+  }
+}
+
+export async function deleteBlog(id: string) {
+  try {
+    await sql`
+      UPDATE blogs 
+      SET delete = true 
+      WHERE id = ${id}
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error("删除博客失败:", error);
+    throw new Error("删除博客失败");
+  }
+}
+
+export async function restoreBlog(id: string) {
+  try {
+    await sql`
+      UPDATE blogs 
+      SET delete = false 
+      WHERE id = ${id}
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error("恢复博客失败:", error);
+    throw new Error("恢复博客失败");
+  }
+}
+
+export async function updateBlogCategory(id: string, category: string) {
+  try {
+    await sql`
+      UPDATE blogs 
+      SET category = ${category}
+      WHERE id = ${id}
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error("更新博客分类失败:", error);
+    throw new Error("更新博客分类失败");
   }
 }
