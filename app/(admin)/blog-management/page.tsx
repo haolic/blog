@@ -183,7 +183,7 @@ export default function BlogManagement() {
                           确定要恢复这篇博客吗？
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                          确定要恢复这篇博客吗？恢复后将可以正常访问。
+                          恢复后将可以正常展示在文章列表中。
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -207,7 +207,7 @@ export default function BlogManagement() {
                           确定要删除这篇博客吗？
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                          确定要删除这篇博客吗？删除后将无法恢复。
+                          删除后将不展示在博客列表中。
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
