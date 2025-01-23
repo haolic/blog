@@ -56,6 +56,7 @@ export async function getAllBlogs() {
           ) ORDER BY created_at DESC
         ) as blogs
       FROM blogs
+      WHERE delete = false
       GROUP BY category
       ORDER BY category ASC
     `;
