@@ -14,8 +14,10 @@
 - Next.js 15
 - TypeScript
 - Tailwind CSS
+- shadcn/ui
+- reactbits.dev
 - PostgreSQL
-
+- Vercel
 ## 项目结构
 
 ```
