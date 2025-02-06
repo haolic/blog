@@ -113,12 +113,33 @@ export default function BlogManagement() {
     }
   };
 
+  const stats = [
+    { name: "总文章数", value: blogs.length },
+    { name: "活跃文章", value: blogs.filter((b) => !b.delete).length },
+    {
+      name: "分类分布",
+      value: CATEGORIES.map((c) => (
+        <span key={c} className="text-base mr-4">
+          {`${c}: ${blogs.filter((b) => b.category === c).length}`}
+        </span>
+      )),
+    },
+  ];
+
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <BackSvg href="/blog" />
         博客管理
       </h1>
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        {stats.map((stat) => (
+          <div key={stat.name} className="border p-4 rounded-lg">
+            <div className="text-gray-500 text-sm">{stat.name}</div>
+            <div className="text-2xl font-bold">{stat.value}</div>
+          </div>
+        ))}
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -175,7 +196,7 @@ export default function BlogManagement() {
                 {blog.delete ? (
                   <AlertDialog>
                     <AlertDialogTrigger className="text-green-500">
-                      恢复  
+                      恢复
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
