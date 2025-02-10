@@ -68,13 +68,13 @@ export default async function BlogPage() {
       </Accordion>
       <Link
         href="/blog-add"
-        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-10 right-24"
+        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-24"
       >
         <AddSvg />
       </Link>
       <Link
         href="/blog-management"
-        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-10 right-10"
+        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-10"
       >
         <ManagementSvg />
       </Link>
