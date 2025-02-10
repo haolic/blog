@@ -70,7 +70,6 @@ export async function getAllBlogs() {
       blogs: (row.blogs as BlogItem[]).map((blog) => ({
         ...blog,
         created_at: dayjs(blog.created_at)
-          .add(8, "hour")
           .format("YYYY-MM-DD HH:mm:ss"),
       })),
     }));
@@ -88,7 +87,6 @@ export async function getBlogById(id: string) {
     const blog = result.rows[0] as BlogItem;
     if (blog) {
       blog.created_at = dayjs(blog.created_at)
-        .add(8, "hour")
         .format("YYYY-MM-DD HH:mm:ss");
     }
     return blog;
@@ -107,7 +105,6 @@ export async function getAllBlogsFlatten() {
     if (blogs?.length) {
       blogs.forEach((blog) => {
         blog.created_at = dayjs(blog.created_at)
-          .add(8, "hour")
           .format("YYYY-MM-DD HH:mm:ss");
       });
     }
