@@ -3,10 +3,10 @@ import { deleteBlog, restoreBlog, updateBlogCategory } from "@/lib/db";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const id = (await params).id;
 
     if (!id) {
       return NextResponse.json({ error: "博客ID不能为空" }, { status: 400 });
@@ -23,10 +23,10 @@ export async function DELETE(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const id = (await params).id;
 
     if (!id) {
       return NextResponse.json({ error: "博客ID不能为空" }, { status: 400 });
