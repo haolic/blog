@@ -9,10 +9,10 @@ const navList = [
     name: "Home",
     path: "/home",
   },
-  {
-    name: "项目",
-    path: "/project",
-  },
+  // {
+  //   name: "项目",
+  //   path: "/project",
+  // },
   {
     name: "Blog",
     path: "/blog",
