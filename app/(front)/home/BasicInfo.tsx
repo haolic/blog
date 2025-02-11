@@ -18,11 +18,11 @@ export default function BasicInfo() {
         </div>
         <Separator className="my-4 bg-ring" />
         <div className="flex h-5 items-center space-x-4 text-sm">
-          <div>男</div>
+          <div>React、Next.js、TypeScript、Node.js</div>
           <Separator orientation="vertical" className="bg-ring" />
           <div>faruxue2019@163.com</div>
           <Separator orientation="vertical" className="bg-ring" />
-          <div>React、Next.js、TypeScript、Node.js</div>
+          <div>男</div>
         </div>
       </motion.div>
     </SpotlightCard>
