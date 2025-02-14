@@ -18,7 +18,7 @@ export default function BasicInfo() {
         </div>
         <Separator className="my-4 bg-ring" />
         <div className="flex h-5 items-center space-x-4 text-sm">
-          <div>React、Next.js、TypeScript、Node.js</div>
+          <div>React、Next.js、Tailwind CSS、Node.js</div>
           <Separator orientation="vertical" className="bg-ring" />
           <div>faruxue2019@163.com</div>
           <Separator orientation="vertical" className="bg-ring" />

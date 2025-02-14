@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
+import { Noto_Serif } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -8,6 +9,11 @@ import { ModeToggle } from "@/components/ModeToggle";
 export const metadata: Metadata = {
   title: "Haolic",
 };
+
+const notoSerif = Noto_Serif({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -19,7 +25,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://static.zeoseven.com/zsft/22/main/result.css" />
       </head>
-      <body className="flex flex-col items-center justify-center">
+      <body className={`flex flex-col items-center justify-center ${notoSerif.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
