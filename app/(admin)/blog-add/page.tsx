@@ -87,7 +87,7 @@ export default function BlogAdd() {
   return (
     <div className="font-styleFont w-full mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <BackSvg href="/blog" />
+        <BackSvg />
         <div>添加新博客</div>
       </h1>
       <Form {...form}>

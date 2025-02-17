@@ -34,7 +34,7 @@ export default async function BlogDetail({
         "text-center": category === "墨者无疆",
       })}
     >
-      <BackSvg href="/blog" className="fixed top-10 left-6" />
+      <BackSvg className="fixed top-10 left-6" />
 
       <div className="text-2xl font-bold mb-6">
         <div>{blog?.title}</div>

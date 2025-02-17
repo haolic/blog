@@ -129,7 +129,7 @@ export default function BlogManagement() {
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <BackSvg href="/blog" />
+        <BackSvg />
         博客管理
       </h1>
       <div className="grid grid-cols-3 gap-4 mb-6">

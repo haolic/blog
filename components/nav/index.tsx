@@ -15,7 +15,7 @@ const navList = [
   // },
   {
     name: "Blog",
-    path: "/blog",
+    path: "/blogs",
   },
 ];
 

@@ -8,14 +8,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <div className="pt-24 w-full flex flex-col items-center">
       <Nav />
       <Toaster />
       {children}
+      {modal}
     </div>
   );
 }
