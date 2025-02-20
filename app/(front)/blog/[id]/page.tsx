@@ -1,19 +1,15 @@
 import { getBlogById } from "@/lib/db";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { cn } from "@/lib/utils";
-import rehypeRaw from "rehype-raw";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import markdownComponents from "./markdownComponents";
 
 import BackSvg from "@/components/icons/BackSvg";
 
-import "./mdxReset.css";
-
-// 处理特殊字符的函数
-const processContent = (content: string) => {
-  // 使用正则表达式匹配不在代码块内的内容
-  return content.replace(/(?<!```[\s\S]*?)([<>])(?![\s\S]*?```)/g, (match) => {
-    return match === "<" ? "&lt;" : "&gt;";
-  });
-};
+import "katex/dist/katex.min.css";
+// import "./mdxReset.css";
 
 export default async function BlogDetail({
   params,
@@ -23,9 +19,9 @@ export default async function BlogDetail({
   const id = (await params).id;
   const blog = await getBlogById(id);
 
-  const processedContent = blog?.content ? processContent(blog.content) : "";
-
   const category = blog?.category;
+
+  console.log(blog?.content);
 
   return (
     <div
@@ -47,15 +43,13 @@ export default async function BlogDetail({
           "text-xl font-bold": category === "墨者无疆",
         })}
       >
-        <MDXRemote
-          source={processedContent}
-          options={{
-            parseFrontmatter: false,
-            mdxOptions: {
-              rehypePlugins: [rehypeRaw],
-            },
-          }}
-        />
+        <ReactMarkdown
+          components={markdownComponents}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+        >
+          {blog?.content || ""}
+        </ReactMarkdown>
       </div>
     </div>
   );
