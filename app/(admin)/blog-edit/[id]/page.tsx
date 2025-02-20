@@ -9,7 +9,7 @@ export default async function BlogEdit({
   const { id } = await params;
 
   const blog = await getBlogById(id);
-
+  console.log(blog);
   return (
     <BlogAdd
       defaultValues={{

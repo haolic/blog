@@ -31,10 +31,14 @@ export async function PATCH(
     if (!id) {
       return NextResponse.json({ error: "博客ID不能为空" }, { status: 400 });
     }
-    const { category } = await request.json();
+    const { category, title, content } = await request.json();
 
     if (category) {
-      await updateBlogCategory(id, category);
+      await updateBlogCategory(id, {
+        category,
+        title,
+        content,
+      });
       return NextResponse.json({ success: true });
     }
 

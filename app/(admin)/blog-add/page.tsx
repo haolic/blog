@@ -69,11 +69,24 @@ export default function BlogAdd({
   });
 
   useEffect(() => {
+    let formModified = false;
     const subscription = form.watch(() => {
       setIsDirty(true);
+      formModified = true;
     });
 
-    const handleSave = () => {
+    // 添加页面离开确认
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (formModified) {
+        e.preventDefault();
+        e.returnValue = "您有未保存的表单数据，确定要离开吗？";
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    const handleSaveDraft = () => {
       const values = form.getValues();
       localStorage.setItem(
         `blog-draft-${defaultValues?.id || ""}`,
@@ -87,26 +100,30 @@ export default function BlogAdd({
       );
       setDraftUpdatedAt(now);
       setIsDirty(false);
+      formModified = false;
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
+
     document.addEventListener("keydown", (e) => {
       // mac 系统
       if (navigator.userAgent.includes("Mac OS")) {
         if (e.key === "s" && e.metaKey) {
           e.preventDefault();
-          handleSave();
+          handleSaveDraft();
         }
       } else {
         // windows 系统
         if (e.key === "s" && e.ctrlKey) {
           e.preventDefault();
-          handleSave();
+          handleSaveDraft();
         }
       }
     });
 
     return () => {
       subscription.unsubscribe();
-      document.removeEventListener("keydown", handleSave);
+      document.removeEventListener("keydown", handleSaveDraft);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [form, defaultValues]);
 
@@ -151,10 +168,32 @@ export default function BlogAdd({
     }
   };
 
+  const saveNew = async (formData: z.infer<typeof formSchema>) => {
+    const response = await fetch("/api/blog", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    return await response.json();
+  };
+
+  const updateBlog = async (formData: z.infer<typeof formSchema>) => {
+    const response = await fetch(`/api/blog/${defaultValues?.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    return await response.json();
+  };
+
   // 2. Define a submit handler.
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     if (!formData.title || !formData.content) {
       alert("标题和内容不能为空");
       return;
@@ -162,15 +201,12 @@ export default function BlogAdd({
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/blog", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
+      let data;
+      if (!defaultValues?.id) {
+        data = await saveNew(formData);
+      } else {
+        data = await updateBlog(formData);
+      }
       if (data.success) {
         toast("发布成功");
         localStorage.removeItem(`blog-draft-${defaultValues?.id || ""}`);
@@ -178,8 +214,8 @@ export default function BlogAdd({
           `blog-draft-updated-at-${defaultValues?.id || ""}`
         );
         setTimeout(() => {
-          router.push("/blog");
-        }, 1000);
+          router.push("/blogs");
+        }, 500);
       } else {
         throw new Error(data.error || "发布失败");
       }
@@ -195,7 +231,7 @@ export default function BlogAdd({
     <div className="font-styleFont w-full mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <BackSvg />
-        <div>添加新博客</div>
+        <div>{defaultValues?.id ? "编辑博客" : "添加新博客"}</div>
       </h1>
       <Form {...form}>
         <form className="space-y-8">
@@ -221,7 +257,7 @@ export default function BlogAdd({
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                     className="flex flex-col space-y-1"
                   >
                     <FormItem className="flex items-center space-x-3 space-y-0">
@@ -296,7 +332,11 @@ export default function BlogAdd({
           />
         </form>
         <div className="flex gap-2 justify-end mt-4">
-          <Button variant="outline" onClick={() => router.push("/blog")}>
+          <Button
+            variant="outline"
+            onClick={() => router.push("/blogs")}
+            disabled={isSubmitting}
+          >
             取消
           </Button>
           {isSubmitting ? (

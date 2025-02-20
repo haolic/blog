@@ -69,8 +69,7 @@ export async function getAllBlogs() {
       category: row.category as string,
       blogs: (row.blogs as BlogItem[]).map((blog) => ({
         ...blog,
-        created_at: dayjs(blog.created_at)
-          .format("YYYY-MM-DD HH:mm:ss"),
+        created_at: dayjs(blog.created_at).format("YYYY-MM-DD HH:mm:ss"),
       })),
     }));
   } catch (error) {
@@ -86,8 +85,7 @@ export async function getBlogById(id: string) {
     `;
     const blog = result.rows[0] as BlogItem;
     if (blog) {
-      blog.created_at = dayjs(blog.created_at)
-        .format("YYYY-MM-DD HH:mm:ss");
+      blog.created_at = dayjs(blog.created_at).format("YYYY-MM-DD HH:mm:ss");
     }
     return blog;
   } catch (error) {
@@ -104,8 +102,7 @@ export async function getAllBlogsFlatten() {
     const blogs = result.rows as BlogItem[];
     if (blogs?.length) {
       blogs.forEach((blog) => {
-        blog.created_at = dayjs(blog.created_at)
-          .format("YYYY-MM-DD HH:mm:ss");
+        blog.created_at = dayjs(blog.created_at).format("YYYY-MM-DD HH:mm:ss");
       });
     }
     return blogs;
@@ -143,11 +140,21 @@ export async function restoreBlog(id: string) {
   }
 }
 
-export async function updateBlogCategory(id: string, category: string) {
+export async function updateBlogCategory(
+  id: string,
+  data: {
+    category?: string;
+    title?: string;
+    content?: string;
+  }
+) {
   try {
     await sql`
       UPDATE blogs 
-      SET category = ${category}
+      SET 
+        category = COALESCE(${data.category}, category),
+        title = COALESCE(${data.title}, title),
+        content = COALESCE(${data.content}, content)
       WHERE id = ${id}
     `;
     return { success: true };
