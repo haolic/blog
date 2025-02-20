@@ -21,8 +21,6 @@ export default async function BlogDetail({
 
   const category = blog?.category;
 
-  console.log(blog?.content);
-
   return (
     <div
       className={cn("max-w-[800px] mx-auto p-6 font-styleFont", {
