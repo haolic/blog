@@ -33,8 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import BackSvg from "@/components/BackSvg";
-
-const CATEGORIES = ["赶路", "墨者无疆", "过往->当下"];
+import { CATEGORIES } from "@/constants";
 
 export default function BlogManagement() {
   const [blogs, setBlogs] = useState<BlogItem[]>([]);

@@ -36,6 +36,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCallback, useEffect, useState } from "react";
 import BackSvg from "@/components/BackSvg";
 import { cn } from "@/lib/utils";
+import { CATEGORIES } from "@/constants";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -260,26 +261,19 @@ export default function BlogAdd({
                     value={field.value}
                     className="flex flex-col space-y-1"
                   >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="赶路" />
-                      </FormControl>
-                      <FormLabel className="font-normal">赶路</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="墨者无疆" />
-                      </FormControl>
-                      <FormLabel className="font-normal">墨者无疆</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="过往->当下" />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        {"过往->当下"}
-                      </FormLabel>
-                    </FormItem>
+                    {CATEGORIES.map((el) => {
+                      return (
+                        <FormItem
+                          key={el}
+                          className="flex items-center space-x-3 space-y-0"
+                        >
+                          <FormControl>
+                            <RadioGroupItem value={el} />
+                          </FormControl>
+                          <FormLabel className="font-normal">{el}</FormLabel>
+                        </FormItem>
+                      );
+                    })}
                   </RadioGroup>
                 </FormControl>
                 <FormMessage />

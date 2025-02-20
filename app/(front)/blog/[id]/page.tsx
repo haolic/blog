@@ -11,6 +11,7 @@ import BackSvg from "@/components/BackSvg";
 
 import "katex/dist/katex.min.css";
 import Link from "next/link";
+import { CategorysEnum } from "@/constants";
 
 export default async function BlogDetail({
   params,
@@ -25,8 +26,8 @@ export default async function BlogDetail({
   return (
     <div
       className={cn("max-w-[800px] mx-auto p-6 font-styleFont", {
-        "w-full": category !== "墨者无疆",
-        "text-center": category === "墨者无疆",
+        "w-full": category !== CategorysEnum.墨者无疆,
+        "text-center": category === CategorysEnum.墨者无疆,
       })}
     >
       <BackSvg className="fixed top-10 left-6" />
@@ -39,8 +40,8 @@ export default async function BlogDetail({
       </div>
       <div
         className={cn("mdx-wrap", {
-          "text-xl font-bold": category === "墨者无疆",
-          "[&>p]:[text-indent:2em]": category === "赶路",
+          "text-xl font-bold": category === CategorysEnum.墨者无疆,
+          "[&>p]:[text-indent:2em]": category === CategorysEnum.赶路,
         })}
       >
         <ReactMarkdown
