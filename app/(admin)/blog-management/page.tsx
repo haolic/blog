@@ -31,7 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import BackSvg from "@/components/icons/BackSvg";
+import BackSvg from "@/components/BackSvg";
 
 const CATEGORIES = ["赶路", "墨者无疆", "过往->当下"];
 

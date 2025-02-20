@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import { getAllBlogs } from "@/lib/db";
-import AddSvg from "@/components/icons/AddSvg";
+import { ListFilterPlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
-import ManagementSvg from "@/components/icons/ManagementSvg";
+import { ChartNoAxesGantt } from 'lucide-react';
 
 export default async function BlogPage() {
   const blogs = await getAllBlogs();
@@ -70,13 +70,13 @@ export default async function BlogPage() {
         href="/blog-add"
         className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-24"
       >
-        <AddSvg />
+        <ListFilterPlus />
       </Link>
       <Link
         href="/blog-management"
         className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-10"
       >
-        <ManagementSvg />
+        <ChartNoAxesGantt />
       </Link>
     </div>
   );

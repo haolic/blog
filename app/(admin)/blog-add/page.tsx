@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import BackSvg from "@/components/icons/BackSvg";
+import BackSvg from "@/components/BackSvg";
 
 const formSchema = z.object({
   title: z.string().min(1, {

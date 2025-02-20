@@ -6,7 +6,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import markdownComponents from "./markdownComponents";
 
-import BackSvg from "@/components/icons/BackSvg";
+import BackSvg from "@/components/BackSvg";
 
 import "katex/dist/katex.min.css";
 // import "./mdxReset.css";

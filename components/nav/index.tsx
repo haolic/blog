@@ -3,11 +3,13 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { House, Rss } from "lucide-react";
 
 const navList = [
   {
     name: "Home",
     path: "/home",
+    icon: <House size={18} />,
   },
   // {
   //   name: "项目",
@@ -16,6 +18,7 @@ const navList = [
   {
     name: "Blog",
     path: "/blogs",
+    icon: <Rss size={18} />,
   },
 ];
 
@@ -34,7 +37,10 @@ export default function Nav() {
         {navList.map((item) => (
           <Link href={item.path} key={item.path}>
             <TabsTrigger value={item.path} className="min-w-24">
-              {item.name}
+              <div className="flex items-center gap-1">
+                {item.icon}
+                {item.name}
+              </div>
             </TabsTrigger>
           </Link>
         ))}
