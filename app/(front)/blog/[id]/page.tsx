@@ -4,11 +4,13 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { Pencil } from "lucide-react";
 import markdownComponents from "./markdownComponents";
 
 import BackSvg from "@/components/BackSvg";
 
 import "katex/dist/katex.min.css";
+import Link from "next/link";
 
 export default async function BlogDetail({
   params,
@@ -49,6 +51,12 @@ export default async function BlogDetail({
           {blog?.content || ""}
         </ReactMarkdown>
       </div>
+      <Link
+        href={`/blog-edit/${id}`}
+        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-24"
+      >
+        <Pencil />
+      </Link>
     </div>
   );
 }

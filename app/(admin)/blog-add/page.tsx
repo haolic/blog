@@ -4,6 +4,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { Dot } from "lucide-react";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,8 +33,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useRouter } from "next/navigation";
 
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BackSvg from "@/components/BackSvg";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -36,8 +49,15 @@ const formSchema = z.object({
   }),
 });
 
-export default function BlogAdd() {
+export default function BlogAdd({
+  defaultValues,
+}: {
+  defaultValues?: z.infer<typeof formSchema> & { id: string };
+}) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [draftUpdatedAt, setDraftUpdatedAt] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,6 +67,89 @@ export default function BlogAdd() {
       category: "",
     },
   });
+
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      setIsDirty(true);
+    });
+
+    const handleSave = () => {
+      const values = form.getValues();
+      localStorage.setItem(
+        `blog-draft-${defaultValues?.id || ""}`,
+        JSON.stringify(values)
+      );
+
+      const now = new Date().getTime();
+      localStorage.setItem(
+        `blog-draft-updated-at-${defaultValues?.id || ""}`,
+        now.toString()
+      );
+      setDraftUpdatedAt(now);
+      setIsDirty(false);
+    };
+    document.addEventListener("keydown", (e) => {
+      // mac 系统
+      if (navigator.userAgent.includes("Mac OS")) {
+        if (e.key === "s" && e.metaKey) {
+          e.preventDefault();
+          handleSave();
+        }
+      } else {
+        // windows 系统
+        if (e.key === "s" && e.ctrlKey) {
+          e.preventDefault();
+          handleSave();
+        }
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+      document.removeEventListener("keydown", handleSave);
+    };
+  }, [form, defaultValues]);
+
+  // 初始化表单
+  const init = useCallback(async () => {
+    const draft = localStorage.getItem(`blog-draft-${defaultValues?.id || ""}`);
+    if (draft) {
+      setOpen(true);
+    } else {
+      if (defaultValues) {
+        form.reset(defaultValues);
+      }
+    }
+  }, [defaultValues, form]);
+
+  useEffect(() => {
+    init();
+  }, [init]);
+
+  const cancelEditDraft = () => {
+    setOpen(false);
+    localStorage.removeItem(`blog-draft-${defaultValues?.id || ""}`);
+    localStorage.removeItem(`blog-draft-updated-at-${defaultValues?.id || ""}`);
+
+    if (defaultValues) {
+      form.reset(defaultValues);
+    }
+  };
+
+  const continueEditDraft = () => {
+    setOpen(false);
+    const draft = localStorage.getItem(`blog-draft-${defaultValues?.id || ""}`);
+    const draftUpdatedAt = localStorage.getItem(
+      `blog-draft-updated-at-${defaultValues?.id || ""}`
+    );
+
+    if (draft) {
+      form.reset(JSON.parse(draft));
+      if (draftUpdatedAt) {
+        setDraftUpdatedAt(parseInt(draftUpdatedAt));
+      }
+    }
+  };
 
   // 2. Define a submit handler.
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
@@ -70,6 +173,10 @@ export default function BlogAdd() {
       const data = await response.json();
       if (data.success) {
         toast("发布成功");
+        localStorage.removeItem(`blog-draft-${defaultValues?.id || ""}`);
+        localStorage.removeItem(
+          `blog-draft-updated-at-${defaultValues?.id || ""}`
+        );
         setTimeout(() => {
           router.push("/blog");
         }, 1000);
@@ -141,25 +248,6 @@ export default function BlogAdd() {
                 </FormControl>
                 <FormMessage />
               </FormItem>
-              // <FormItem className="w-48">
-              //   <FormLabel>分类</FormLabel>
-              //   <Select
-              //     onValueChange={field.onChange}
-              //     defaultValue={field.value}
-              //   >
-              //     <FormControl>
-              //       <SelectTrigger>
-              //         <SelectValue placeholder="选择分类" />
-              //       </SelectTrigger>
-              //     </FormControl>
-              //     <SelectContent>
-              //       <SelectItem value="赶路">赶路</SelectItem>
-              //       <SelectItem value="墨者无疆">墨者无疆</SelectItem>
-              //       <SelectItem value="过往->当下">{"过往->当下"}</SelectItem>
-              //     </SelectContent>
-              //   </Select>
-              //   <FormMessage />
-              // </FormItem>
             )}
           />
           <FormField
@@ -173,7 +261,7 @@ export default function BlogAdd() {
                     <Textarea placeholder="输入内容" {...field} rows={15} />
                   </FormControl>
                   <FormMessage />
-                  <FormDescription>
+                  <FormDescription className="flex justify-between">
                     <a
                       href="https://daringfireball.net/projects/markdown/syntax"
                       target="_blank"
@@ -181,6 +269,26 @@ export default function BlogAdd() {
                     >
                       查看markdown语法
                     </a>
+                    {draftUpdatedAt && (
+                      <span className="text-sm text-gray-500 flex items-center">
+                        {
+                          <Dot
+                            className={cn(
+                              "transition-all duration-300 relative",
+                              {
+                                "opacity-0": !isDirty,
+                                "right-2": !isDirty,
+
+                                "opacity-100": isDirty,
+                                "right-0": isDirty,
+                              }
+                            )}
+                          />
+                        }
+                        暂存于：
+                        {new Date(draftUpdatedAt).toLocaleString()}
+                      </span>
+                    )}
                   </FormDescription>
                 </FormItem>
               );
@@ -200,6 +308,24 @@ export default function BlogAdd() {
           )}
         </div>
       </Form>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>是否继续编辑草稿？</AlertDialogTitle>
+            <AlertDialogDescription>
+              检测到您之前保存的草稿，是否继续编辑？
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelEditDraft}>
+              取消
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={continueEditDraft}>
+              继续编辑
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
