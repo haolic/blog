@@ -9,7 +9,6 @@ import markdownComponents from "./markdownComponents";
 import BackSvg from "@/components/BackSvg";
 
 import "katex/dist/katex.min.css";
-// import "./mdxReset.css";
 
 export default async function BlogDetail({
   params,
@@ -39,6 +38,7 @@ export default async function BlogDetail({
       <div
         className={cn("mdx-wrap", {
           "text-xl font-bold": category === "墨者无疆",
+          "[&>p]:[text-indent:2em]": category === "赶路",
         })}
       >
         <ReactMarkdown

@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { BlogItem } from "@/lib/db";
+import { Trash2, ListRestart } from "lucide-react";
 
 import {
   AlertDialog,
@@ -196,7 +197,7 @@ export default function BlogManagement() {
                 {blog.delete ? (
                   <AlertDialog>
                     <AlertDialogTrigger className="text-green-500">
-                      恢复
+                      <ListRestart size={18} />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -220,7 +221,7 @@ export default function BlogManagement() {
                 ) : (
                   <AlertDialog>
                     <AlertDialogTrigger className="text-red-500">
-                      删除
+                      <Trash2 size={18} />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>

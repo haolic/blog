@@ -4,7 +4,7 @@ import Squares from "@/components/Squares";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4 pb-6">
       <Avatar />
 
       <BasicInfo />
