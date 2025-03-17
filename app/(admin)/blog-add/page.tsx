@@ -48,7 +48,7 @@ const formSchema = z.object({
   category: z.string().min(1, {
     message: "分类不能为空",
   }),
-  id: z.string().optional(),
+  id: z.union([z.string(), z.number()]).optional(),
 });
 
 export default function BlogAdd({
@@ -67,6 +67,7 @@ export default function BlogAdd({
       title: "",
       content: "",
       category: "",
+      id: "",
     },
   });
 
@@ -298,7 +299,7 @@ export default function BlogAdd({
                       target="_blank"
                       className="underline"
                     >
-                      查看markdown语法
+                      查看Markdown语法
                     </a>
                     {draftUpdatedAt && (
                       <span className="text-sm text-gray-500 flex items-center">
@@ -339,7 +340,14 @@ export default function BlogAdd({
               保存中...
             </Button>
           ) : (
-            <Button onClick={() => form.handleSubmit(onSubmit)()}>保存</Button>
+            <Button
+              onClick={() => {
+                console.log(form.getValues());
+                form.handleSubmit(onSubmit, console.log)();
+              }}
+            >
+              保存
+            </Button>
           )}
         </div>
       </Form>
