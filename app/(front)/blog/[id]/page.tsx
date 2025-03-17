@@ -1,4 +1,4 @@
-import { getBlogById } from "@/lib/db";
+import { getAllBlogsFlatten, getBlogById } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -12,6 +12,13 @@ import BackSvg from "@/components/BackSvg";
 import "katex/dist/katex.min.css";
 import Link from "next/link";
 import { CategorysEnum } from "@/constants";
+
+export async function generateStaticParams() {
+  const blogs = await getAllBlogsFlatten();
+  return blogs?.map((el) => ({
+    id: el.id,
+  }));
+}
 
 export default async function BlogDetail({
   params,
