@@ -15,8 +15,11 @@ import { CategorysEnum } from "@/constants";
 
 export async function generateStaticParams() {
   const blogs = await getAllBlogsFlatten();
+  if (!blogs?.length) {
+    return [];
+  }
   return blogs?.map((el) => ({
-    id: el.id,
+    id: String(el.id),
   }));
 }
 

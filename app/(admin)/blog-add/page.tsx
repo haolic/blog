@@ -48,12 +48,13 @@ const formSchema = z.object({
   category: z.string().min(1, {
     message: "分类不能为空",
   }),
+  id: z.string().optional(),
 });
 
 export default function BlogAdd({
   defaultValues,
 }: {
-  defaultValues?: z.infer<typeof formSchema> & { id: string };
+  defaultValues: z.infer<typeof formSchema>;
 }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
