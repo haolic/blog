@@ -4,7 +4,7 @@ const SVGNodejs = ({ className }: { className?: string }) => {
   return (
     <svg
       width="267"
-      height="80"
+      height="20"
       viewBox="0 0 267 80"
       fill="none"
       aria-label="Node.js logo"
