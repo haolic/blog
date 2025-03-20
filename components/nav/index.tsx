@@ -4,17 +4,12 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { House, Rss } from "lucide-react";
-
 const navList = [
   {
     name: "Home",
     path: "/home",
     icon: <House size={18} />,
   },
-  // {
-  //   name: "项目",
-  //   path: "/project",
-  // },
   {
     name: "Blog",
     path: "/blogs",
