@@ -7,7 +7,6 @@ const HomeassistantNext = () => {
       <CardHeader>
         <CardTitle className="text-center">
           <span>Homeassistant-NEXT</span>
-          <span>切换liangan</span>
         </CardTitle>
       </CardHeader>
 
