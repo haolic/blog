@@ -35,7 +35,7 @@ const HomeassistantNext = () => {
             src="/homeassistant-next/homeassistant-next-pc.png"
             alt="Homeassistant-NEXT"
             className={cn(
-              "w-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
             width={1000}
@@ -49,7 +49,7 @@ const HomeassistantNext = () => {
             width={1000}
             height={500}
             className={cn(
-              "w-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "dark" ? "opacity-100" : "opacity-0"
             )}
           />
@@ -62,7 +62,7 @@ const HomeassistantNext = () => {
             width={1000}
             height={500}
             className={cn(
-              "w-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
           />
@@ -73,7 +73,7 @@ const HomeassistantNext = () => {
             width={1000}
             height={500}
             className={cn(
-              "w-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "dark" ? "opacity-100" : "opacity-0"
             )}
           />

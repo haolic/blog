@@ -38,7 +38,7 @@ const HomeassistantNextPhone = () => {
             width={300}
             height={587.22}
             className={cn(
-              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
           />
@@ -49,7 +49,7 @@ const HomeassistantNextPhone = () => {
             width={300}
             height={587.22}
             className={cn(
-              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "dark" ? "opacity-100" : "opacity-0"
             )}
           />
@@ -62,7 +62,7 @@ const HomeassistantNextPhone = () => {
             width={300}
             height={587.22}
             className={cn(
-              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
           />
@@ -73,7 +73,7 @@ const HomeassistantNextPhone = () => {
             width={300}
             height={587.22}
             className={cn(
-              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700",
+              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "dark" ? "opacity-100" : "opacity-0"
             )}
           />
