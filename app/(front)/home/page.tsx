@@ -3,19 +3,40 @@ import Avatar from "./Avatar";
 import Squares from "@/components/Squares";
 import { Separator } from "@/components/ui/separator";
 import NFTs from "./NFTs";
-
+import Projects from "./Projects";
 export default function HomePage() {
   return (
     <div className="flex flex-col w-full items-center justify-center gap-4 p-6">
+      {
+        // 全屏的滚动方格
+      }
+      <Squares />
+
+      {
+        // 头像
+      }
       <Avatar />
 
+      {
+        // 基本信息
+      }
       <BasicInfo />
 
-      <Separator className="my-4 bg-slate-600" />
+      <Separator className="my-10 bg-slate-600" />
 
+      {
+        // NFTs
+      }
       <NFTs />
 
-      <Squares />
+      <Separator className="my-10 bg-slate-600" />
+
+      {
+        // 项目
+      }
+      <Projects />
+
+      <Separator className="my-10 bg-slate-600" />
     </div>
   );
 }

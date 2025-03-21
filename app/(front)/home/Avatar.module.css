@@ -1,0 +1,41 @@
+.avatar-drag-container {
+  animation: avatar-drag-container-animation 363s ease-out paused;
+  transform-origin: top center;
+  animation-delay: var(--delay);
+}
+
+.avatar-drag-hand {
+  animation: avatar-drag-hand-animation 363s ease-out paused;
+  animation-delay: var(--delay);
+}
+
+@keyframes avatar-drag-container-animation {
+  0% {
+    transform: translateX(-50%) scale(1);
+    top: 120px;
+  }
+
+  50% {
+    transform: translateX(-89%) scale(0.5);
+    top: 54px;
+  }
+
+  100% {
+    transform: translateX(-110%) scale(0.14);
+    top: 28px;
+  }
+}
+
+@keyframes avatar-drag-hand-animation {
+  0% {
+    opacity: 0.3; 
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
