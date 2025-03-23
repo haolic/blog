@@ -30,46 +30,43 @@ const HomeassistantNext = () => {
       </CardHeader>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 z-10">
-        <div className="relative w-full h-[500px] mx-auto lg:mx-0 lg:ml-auto ">
+        <div className="relative w-full mx-auto lg:mx-0 lg:ml-auto ">
           <Image
             src="/homeassistant-next/homeassistant-next-pc.png"
             alt="Homeassistant-NEXT"
             className={cn(
-              "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
+              "w-full align-top transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
             width={1000}
-            height={500}
+            height={615.24}
           />
 
           <Image
             src="/homeassistant-next/homeassistant-next-pc-dark.png"
             alt="Homeassistant-NEXT"
-            key="dark"
-            width={1000}
-            height={500}
             className={cn(
               "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
               theme === "dark" ? "opacity-100" : "opacity-0"
             )}
+            width={1000}
+            height={615.24}
           />
         </div>
-        <div className="relative w-full h-[500px] mx-auto lg:mx-0 lg:mr-auto ">
+        <div className="relative w-full mx-auto lg:mx-0 lg:mr-auto ">
           <Image
             src="/homeassistant-next/homeassistant-next-pc-cook.png"
             alt="Homeassistant-NEXT"
-            key="light"
             width={1000}
             height={500}
             className={cn(
-              "w-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
+              "w-full align-top transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
           />
           <Image
             src="/homeassistant-next/homeassistant-next-pc-cook-dark.png"
             alt="Homeassistant-NEXT"
-            key="dark"
             width={1000}
             height={500}
             className={cn(

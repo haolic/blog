@@ -15,11 +15,6 @@
     top: 120px;
   }
 
-  50% {
-    transform: translateX(-89%) scale(0.5);
-    top: 54px;
-  }
-
   100% {
     transform: translateX(-110%) scale(0.14);
     top: 28px;
