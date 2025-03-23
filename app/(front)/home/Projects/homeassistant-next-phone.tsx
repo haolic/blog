@@ -30,7 +30,7 @@ const HomeassistantNextPhone = () => {
       </CardHeader>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 z-10">
-        <div className="relative min-w-[300px] h-[587.22px] mx-auto lg:mx-0 lg:ml-auto ">
+        <div className="relative min-w-[300px] mx-auto lg:mx-0 lg:ml-auto ">
           <Image
             src="/homeassistant-next/homeassistant-next-phone.png"
             alt="Homeassistant-NEXT"
@@ -38,7 +38,7 @@ const HomeassistantNextPhone = () => {
             width={300}
             height={587.22}
             className={cn(
-              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
+              "w-full h-full align-top transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
           />
@@ -54,7 +54,7 @@ const HomeassistantNextPhone = () => {
             )}
           />
         </div>
-        <div className="relative min-w-[300px] h-[587.22px] mx-auto lg:mx-0 lg:mr-auto ">
+        <div className="relative min-w-[300px] mx-auto lg:mx-0 lg:mr-auto ">
           <Image
             src="/homeassistant-next/homeassistant-next-phone-cook.png"
             alt="Homeassistant-NEXT"
@@ -62,7 +62,7 @@ const HomeassistantNextPhone = () => {
             width={300}
             height={587.22}
             className={cn(
-              "w-full h-full align-top absolute top-0 left-0 transition-opacity duration-700 pointer-events-none",
+              "w-full h-full align-top transition-opacity duration-700 pointer-events-none",
               theme === "light" ? "opacity-100" : "opacity-0"
             )}
           />
