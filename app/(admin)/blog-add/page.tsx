@@ -342,7 +342,6 @@ export default function BlogAdd({
           ) : (
             <Button
               onClick={() => {
-                console.log(form.getValues());
                 form.handleSubmit(onSubmit, console.log)();
               }}
             >

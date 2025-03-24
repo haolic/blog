@@ -24,7 +24,7 @@ const HomeassistantNextPhone = () => {
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="cursor-pointer flex items-center gap-1"
           >
-            {theme === "dark" ? <Sun /> : <Moon />}切换
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}切换
           </span>
         </CardTitle>
       </CardHeader>

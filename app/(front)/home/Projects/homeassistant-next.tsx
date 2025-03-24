@@ -16,15 +16,15 @@ const HomeassistantNext = () => {
   }, [resolvedTheme]);
 
   return (
-    <div>
-      <CardHeader>
+    <>
+      <CardHeader className="pt-0">
         <CardTitle className="text-center flex items-center justify-center gap-2">
           Homeassistant-NEXT
           <span
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="cursor-pointer flex items-center gap-1"
           >
-            {theme === "dark" ? <Sun /> : <Moon />}切换
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}切换
           </span>
         </CardTitle>
       </CardHeader>
@@ -76,7 +76,7 @@ const HomeassistantNext = () => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

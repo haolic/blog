@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 
 export default function BasicInfo() {
   return (
-    <SpotlightCard className="relative z-[2] border-slate-600">
+    <SpotlightCard className="relative z-[2] border-slate-600 mt-10">
       <motion.div
         initial={{ opacity: 0, top: 10 }}
         animate={{ opacity: 1, top: 0 }}
