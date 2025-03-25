@@ -9,22 +9,13 @@ const NFTCanvas = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const { resolvedTheme } = useTheme();
 
-  const calcBodyScroll = useCallback(
+  const calcBodyDraw = useCallback(
     ({ pixels, theme }: { pixels: Array<Pixel>; theme: "light" | "dark" }) => {
-      const wrapTop = wrapRef.current!.getBoundingClientRect().top;
-      const range = [window.innerHeight / 2, window.innerHeight];
-      const percent = Math.max(
-        0,
-        Math.min(1, (wrapTop - range[0]) / (range[1] - range[0]))
-      );
-
       draw({
         pixels,
         width: canvas.current!.width,
         height: canvas.current!.height,
         ctx: canvas.current!.getContext("2d")!,
-        percent: percent,
-        wrapTop,
         theme,
       });
     },
@@ -52,11 +43,11 @@ const NFTCanvas = () => {
 
     const text = "N F T s";
     // 设置字体和填充样式
-    ctx.font = `${devicePixelRatio * 48}px Noto Serif`;
+    ctx.font = `${devicePixelRatio * 56}px Noto Serif`;
     ctx.fillStyle = "black";
 
     const textWidth = ctx.measureText(text).width;
-    ctx.fillText(text, (width - textWidth) / 2, 36 * devicePixelRatio);
+    ctx.fillText(text, (width - textWidth) / 2, 42 * devicePixelRatio);
 
     const pixels = getColorPixels({
       ctx,
@@ -71,18 +62,8 @@ const NFTCanvas = () => {
 
     const theme = resolvedTheme as "light" | "dark";
 
-    const handleScroll = calcBodyScroll.bind(null, { pixels, theme });
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleScroll);
-
-    calcBodyScroll({ pixels, theme });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [calcBodyScroll, init, resolvedTheme]);
+    calcBodyDraw({ pixels, theme });
+  }, [calcBodyDraw, init, resolvedTheme]);
 
   return (
     <div
