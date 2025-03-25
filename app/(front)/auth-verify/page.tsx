@@ -58,7 +58,7 @@ export default function AuthLogin() {
   };
 
   return (
-    <Card className="w-[380px] p-4">
+    <Card className=" p-4 mt-24 w-[380px]">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

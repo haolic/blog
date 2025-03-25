@@ -16,8 +16,8 @@
   }
 
   100% {
-    transform: translateX(-110%) scale(0.14);
-    top: 28px;
+    transform: translateX(-50%) scale(0.14);
+    top: 4px;
   }
 }
 

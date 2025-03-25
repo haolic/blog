@@ -16,7 +16,7 @@ import { ChartNoAxesGantt } from "lucide-react";
 export default async function BlogPage() {
   const blogs = await getAllBlogs();
   return (
-    <div className="w-full px-4">
+    <div className="pt-24 w-full px-4">
       <Accordion
         type="multiple"
         defaultValue={blogs?.map((el) => el.category)}

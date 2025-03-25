@@ -6,7 +6,7 @@ import NFTs from "./NFTs";
 import Projects from "./Projects";
 export default function HomePage() {
   return (
-    <div className="flex flex-col w-full items-center justify-center p-6">
+    <div className="pt-24 flex flex-col w-full items-center justify-center p-6">
       {
         // 全屏的滚动方格
       }

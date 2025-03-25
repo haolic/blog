@@ -14,7 +14,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <div className="pt-24 w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       <Nav />
       <Toaster />
       {children}
