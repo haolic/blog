@@ -14,9 +14,9 @@ const getColorPixels = ({
   const pixels = imageData.data;
   const pixelArray: Pixel[] = [];
 
-  // 增加步长到8，减少处理的像素数量
-  for (let i = 0; i < height; i += 5) {
-    for (let j = 0; j < width; j += 5) {
+  // 增加步长，减少处理的像素数量
+  for (let i = 0; i < height; i += 6) {
+    for (let j = 0; j < width; j += 6) {
       const index = (i * width + j) * 4;
       // 检查索引是否有效
       if (index >= pixels.length) continue;

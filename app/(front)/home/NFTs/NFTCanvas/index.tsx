@@ -43,7 +43,7 @@ const NFTCanvas = () => {
 
     const text = "N F T s";
     // 设置字体和填充样式
-    ctx.font = `${devicePixelRatio * 56}px Noto Serif`;
+    ctx.font = `bold ${devicePixelRatio * 56}px Noto Serif`;
     ctx.fillStyle = "black";
 
     const textWidth = ctx.measureText(text).width;
@@ -67,7 +67,7 @@ const NFTCanvas = () => {
 
   return (
     <div
-      className="text-5xl absolute w-full h-full top-0 flex justify-center"
+      className="text-5xl absolute w-[200px] h-[60px] top-0 flex justify-center"
       ref={wrapRef}
     />
   );
