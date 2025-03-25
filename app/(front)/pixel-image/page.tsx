@@ -69,19 +69,29 @@ const PixelImage = () => {
         <CardContent className="flex-1 h-0">
           <div
             className={cn(
-              "w-full h-[400px] transition-all duration-300 flex justify-center items-center",
-              {
-                "opacity-0": !image,
-                "opacity-100": image,
-              }
+              "w-full h-[400px] relative transition-all duration-300 flex justify-center items-center"
             )}
           >
             <canvas
               ref={canvasRef}
               width={600}
               height={600}
-              className="w-full h-full object-contain"
+              className={cn("w-full h-full object-contain", {
+                "opacity-0": !image,
+                "opacity-100": image,
+              })}
             ></canvas>
+            <div
+              className={cn(
+                "absolute top-0 left-0 w-full h-full flex justify-center items-center",
+                {
+                  "opacity-0": image,
+                  "opacity-100": !image,
+                }
+              )}
+            >
+              <div className="text-2xl font-bold opacity-50">请上传图片</div>
+            </div>
           </div>
         </CardContent>
       </Card>
