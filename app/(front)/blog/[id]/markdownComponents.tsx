@@ -57,6 +57,9 @@ const markdownComponents = {
   ul: ({ children }: { children?: React.ReactNode }) => (
     <ul className="my-6 ml-6 list-disc [&>li]:mt-2">{children}</ul>
   ),
+  ol: ({ children }: { children?: React.ReactNode }) => (
+    <ol className="my-6 ml-6 list-decimal [&>li]:mt-2">{children}</ol>
+  ),
   code: ({
     children,
     className,
