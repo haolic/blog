@@ -12,11 +12,12 @@ import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import { ChartNoAxesGantt } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default async function BlogPage() {
   const blogs = await getAllBlogs();
   return (
-    <div className="pt-24 w-full px-4">
+    <div className="pt-24 w-full px-8">
       <Accordion
         type="multiple"
         defaultValue={blogs?.map((el) => el.category)}
@@ -66,17 +67,15 @@ export default async function BlogPage() {
           );
         })}
       </Accordion>
-      <Link
-        href="/blog-add"
-        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-24"
-      >
-        <Plus />
+      <Link href="/blog-add" className="fixed bottom-20 right-24">
+        <Button variant="outline" size="icon">
+          <Plus />
+        </Button>
       </Link>
-      <Link
-        href="/blog-management"
-        className="text-center mt-6 rounded-full border border-gray-200 w-10 h-10 flex justify-center items-center shadow-sm fixed bottom-20 right-10"
-      >
-        <ChartNoAxesGantt />
+      <Link href="/blog-management" className="fixed bottom-20 right-10">
+        <Button variant="outline" size="icon">
+          <ChartNoAxesGantt />
+        </Button>
       </Link>
     </div>
   );

@@ -33,7 +33,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useRouter } from "next/navigation";
 
 import { Textarea } from "@/components/ui/textarea";
-import { useCallback, useEffect, useState } from "react";
+import { useActionState, useCallback, useEffect, useState } from "react";
 import BackSvg from "@/components/BackSvg";
 import { cn } from "@/lib/utils";
 import { CATEGORIES } from "@/constants";
@@ -60,7 +60,7 @@ export default function BlogAdd({
   const [open, setOpen] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [draftUpdatedAt, setDraftUpdatedAt] = useState<number | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -202,7 +202,6 @@ export default function BlogAdd({
       return;
     }
 
-    setIsSubmitting(true);
     try {
       let data;
       if (!defaultValues?.id) {
@@ -225,10 +224,12 @@ export default function BlogAdd({
     } catch (error) {
       console.error(error);
       toast("发布失败");
-    } finally {
-      setIsSubmitting(false);
     }
   };
+
+  const [, formAction, isPending] = useActionState(async () => {
+    await form.handleSubmit(onSubmit, console.log)();
+  }, null);
 
   return (
     <div className="font-styleFont w-full mx-auto p-6">
@@ -326,29 +327,23 @@ export default function BlogAdd({
               );
             }}
           />
-        </form>
-        <div className="flex gap-2 justify-end mt-4">
-          <Button
-            variant="outline"
-            onClick={() => router.push("/blogs")}
-            disabled={isSubmitting}
-          >
-            取消
-          </Button>
-          {isSubmitting ? (
-            <Button variant="outline" disabled>
-              保存中...
-            </Button>
-          ) : (
+          <div className="flex gap-2 justify-end mt-4">
             <Button
-              onClick={() => {
-                form.handleSubmit(onSubmit, console.log)();
-              }}
+              variant="outline"
+              onClick={() => router.push("/blogs")}
+              disabled={isPending}
             >
-              保存
+              取消
             </Button>
-          )}
-        </div>
+            {isPending ? (
+              <Button variant="outline" disabled>
+                保存中...
+              </Button>
+            ) : (
+              <Button formAction={formAction}>保存</Button>
+            )}
+          </div>
+        </form>
       </Form>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
