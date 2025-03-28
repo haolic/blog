@@ -5,6 +5,7 @@ import { Noto_Serif } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ModeToggle";
+import Version from "@/components/Version";
 
 export const metadata: Metadata = {
   title: "Haolic",
@@ -33,6 +34,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Version />
           <ModeToggle />
           <Toaster />
         </ThemeProvider>
