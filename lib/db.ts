@@ -94,6 +94,25 @@ export async function getBlogById(id: string) {
   }
 }
 
+
+export async function getUnDeletedBlogsFlatten() {
+  try {
+    const result = await sql`
+      SELECT * FROM blogs WHERE delete = false order by created_at desc
+    `;
+    const blogs = result.rows as BlogItem[];
+    if (blogs?.length) {
+      blogs.forEach((blog) => {
+        blog.created_at = dayjs(blog.created_at).format("YYYY-MM-DD HH:mm:ss");
+      });
+    }
+    return blogs;
+  } catch (error) {
+    console.error("获取博客失败:", error);
+    return null;
+  }
+}
+
 export async function getAllBlogsFlatten() {
   try {
     const result = await sql`
