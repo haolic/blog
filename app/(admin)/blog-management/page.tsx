@@ -11,29 +11,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { BlogItem } from "@/lib/db";
-import { Trash2, ListRestart } from "lucide-react";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import BackSvg from "@/components/BackSvg";
 import { CATEGORIES } from "@/constants";
+import ActionButtons from "./action-buttons";
+import ChangeCat from "./change-cat";
 
 export default function BlogManagement() {
   const [blogs, setBlogs] = useState<BlogItem[]>([]);
@@ -165,24 +149,10 @@ export default function BlogManagement() {
                   "text-gray-400": blog.delete,
                 })}
               >
-                <Select
-                  defaultValue={blog.category}
-                  disabled={blog.delete}
-                  onValueChange={(value) =>
-                    handleCategoryChange(blog.id, value)
-                  }
-                >
-                  <SelectTrigger className="w-48 h-7 border-none shadow-none">
-                    <SelectValue placeholder="选择分类" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {CATEGORIES.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <ChangeCat
+                  blog={blog}
+                  handleCategoryChange={handleCategoryChange}
+                />
               </TableCell>
               <TableCell
                 className={cn({
@@ -192,57 +162,11 @@ export default function BlogManagement() {
               >
                 {blog.created_at}
               </TableCell>
-              <TableCell>
-                {blog.delete ? (
-                  <AlertDialog>
-                    <AlertDialogTrigger className="text-green-500">
-                      <ListRestart size={18} />
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>
-                          确定要恢复这篇博客吗？
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          恢复后将可以正常展示在文章列表中。
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>取消</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => handleRestore(blog.id)}
-                        >
-                          恢复
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                ) : (
-                  <AlertDialog>
-                    <AlertDialogTrigger className="text-red-500">
-                      <Trash2 size={18} />
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>
-                          确定要删除这篇博客吗？
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          删除后将不展示在博客列表中。
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>取消</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => handleDelete(blog.id)}
-                        >
-                          删除
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                )}
-              </TableCell>
+              <ActionButtons
+                blog={blog}
+                handleDelete={handleDelete}
+                handleRestore={handleRestore}
+              />
             </TableRow>
           ))}
         </TableBody>
