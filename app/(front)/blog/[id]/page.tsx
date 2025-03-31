@@ -1,4 +1,4 @@
-import { getBlogById, getUnDeletedBlogsFlatten } from "@/lib/db";
+import { getUndeletedBlogsFlatten, getBlogById } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -14,7 +14,7 @@ import Link from "next/link";
 import { CategorysEnum } from "@/constants";
 
 export async function generateStaticParams() {
-  const blogs = await getUnDeletedBlogsFlatten();
+  const blogs = await getUndeletedBlogsFlatten();
   if (!blogs?.length) {
     return [];
   }
@@ -25,10 +25,8 @@ export async function generateStaticParams() {
 
 export default async function BlogDetail({
   params,
-  className,
 }: {
   params: Promise<{ id: string }>;
-  className?: string;
 }) {
   const id = (await params).id;
   const blog = await getBlogById(id);
@@ -37,14 +35,10 @@ export default async function BlogDetail({
 
   return (
     <div
-      className={cn(
-        "max-w-[800px] mx-auto pt-24 font-styleFont",
-        {
-          "w-full": category !== CategorysEnum.墨者无疆,
-          "text-center": category === CategorysEnum.墨者无疆,
-        },
-        className
-      )}
+      className={cn("max-w-[800px] mx-auto p-6 font-styleFont", {
+        "w-full": category !== CategorysEnum.墨者无疆,
+        "text-center": category === CategorysEnum.墨者无疆,
+      })}
     >
       <BackSvg className="fixed top-10 left-6" />
 
