@@ -13,6 +13,8 @@ import "katex/dist/katex.min.css";
 import Link from "next/link";
 import { CategorysEnum } from "@/constants";
 
+export const revalidate = 21600;
+
 export async function generateStaticParams() {
   const blogs = await getUndeletedBlogsFlatten();
   if (!blogs?.length) {
