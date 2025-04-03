@@ -63,7 +63,12 @@ const draw = async ({
     }
 
     await new Promise((resolve) => {
-      ctx.fillRect(pixel.x, pixel.y, pixelSize - 2, pixelSize - 2);
+      ctx.fillRect(
+        pixel.x,
+        pixel.y,
+        Math.max(pixelSize - 2, 2),
+        Math.max(pixelSize - 2, 2)
+      );
       if (idx % Math.ceil(pixels.length / 100) === 0) {
         setTimeout(() => {
           resolve(true);

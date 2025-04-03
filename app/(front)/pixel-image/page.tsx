@@ -3,53 +3,96 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { getColorPixels } from "@/lib/utils";
 import draw from "./draw";
+import { Button } from "@/components/ui/button";
 
 const PixelImage = () => {
   const [image, setImage] = useState<File | null>(null);
 
+  const [pixelXNumber, setPixelXNumber] = useState(50);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const canvas = canvasRef.current!;
 
-      const ctx = canvas.getContext("2d")!;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const img = document.createElement("img");
-
-      img.src = URL.createObjectURL(file);
-      img.style.objectFit = "contain";
-      await new Promise((resolve) => {
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          resolve(true);
-        };
-      });
-
-      setImage(file);
-      const pixelXNumber = 50;
-
+  const drawPixelImage = useCallback(
+    async ({
+      width,
+      height,
+      ctx,
+      pixelXNumber,
+    }: {
+      width: number;
+      height: number;
+      ctx: CanvasRenderingContext2D;
+      pixelXNumber: number;
+    }) => {
       const pixels = await getColorPixels({
-        width: canvas.width,
-        height: canvas.height,
+        width,
+        height,
         ctx,
         pixelXNumber,
       });
 
       draw({
-        width: canvas.width,
-        height: canvas.height,
+        width,
+        height,
         pixels,
         container: containerRef.current!,
         pixelXNumber,
       });
-    }
+    },
+    []
+  );
+
+  const handleChange = useCallback(
+    async (e?: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e?.target.files?.[0] || image;
+      if (!file) return;
+
+      if (file) {
+        setImage(file);
+        const canvas = canvasRef.current!;
+
+        const ctx = canvas.getContext("2d")!;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const img = document.createElement("img");
+
+        img.src = URL.createObjectURL(file);
+        img.style.objectFit = "contain";
+        await new Promise((resolve) => {
+          img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            resolve(true);
+          };
+        });
+
+        drawPixelImage({
+          width: canvas.width,
+          height: canvas.height,
+          ctx,
+          pixelXNumber,
+        });
+      }
+    },
+    [pixelXNumber, image, drawPixelImage]
+  );
+
+  const handlePixelNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const pixelXNumber = parseInt(e.target.value);
+    setPixelXNumber(pixelXNumber);
+  };
+
+  const handleDraw = () => {
+    drawPixelImage({
+      width: canvasRef.current!.width,
+      height: canvasRef.current!.height,
+      ctx: canvasRef.current!.getContext("2d")!,
+      pixelXNumber,
+    });
   };
 
   return (
@@ -98,7 +141,18 @@ const PixelImage = () => {
 
       <Card className="relative flex flex-col">
         <CardHeader>
-          <CardTitle className="h-9">Pixel Image</CardTitle>
+          <CardTitle className="h-9 flex items-center justify-between">
+            <span>Pixel Image</span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm break-keep">水平像素数</span>
+              <Input
+                type="number"
+                onChange={handlePixelNumberChange}
+                className="w-20"
+              />
+              <Button onClick={handleDraw}>生成</Button>
+            </div>
+          </CardTitle>
         </CardHeader>
 
         <CardContent className="flex-1 h-0 relative">

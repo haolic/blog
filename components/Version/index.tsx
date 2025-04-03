@@ -14,7 +14,7 @@ export default function Version() {
   }
 
   return (
-    <div className="fixed bottom-3 text-xs text-gray-500 flex gap-2">
+    <div className="fixed bottom-3 text-xs text-gray-500 flex gap-2 opacity-20">
       <span>nextV{nextV}</span>
       <span>ReactV{reactV}</span>
     </div>
