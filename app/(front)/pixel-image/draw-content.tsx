@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { ImageUp, RotateCcw } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
-const accept = ".png,.jpg,.jpeg,.gif,.heic";
+const accept = "image/png,image/jpeg,image/gif,image/webp";
 
 export default function DrawContent() {
   const [image, setImage] = useState<File | null>(null);
@@ -59,6 +60,11 @@ export default function DrawContent() {
     async (e?: React.ChangeEvent<HTMLInputElement>) => {
       const file = e?.target.files?.[0] || image;
       if (!file) return;
+
+      if (!accept.includes(file.type)) {
+        toast.error("不支持此类型的图片");
+        return;
+      }
 
       try {
         setImage(file);

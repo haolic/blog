@@ -1,3 +1,4 @@
+import SpotlightCard from "@/components/SpotlightCard";
 import Image from "next/image";
 
 const imgWidth = 330;
@@ -14,33 +15,36 @@ const ExampleItem = ({
   return (
     <div className="flex gap-6 justify-center mt-14">
       <div>
-        <Image
-          src={originalUrl}
-          alt="原图"
-          width={imgWidth}
-          height={imgWidth}
-          className="rounded-3xl"
-        />
+        <SpotlightCard className="p-0">
+          <Image
+            src={originalUrl}
+            alt="原图"
+            width={imgWidth}
+            height={imgWidth}
+          />
+        </SpotlightCard>
         <div className="text-sm mt-4">原图</div>
       </div>
       <div>
-        <Image
-          src={pixelUrl}
-          alt="像素化"
-          width={imgWidth}
-          height={imgWidth}
-          className="rounded-3xl"
-        />
+        <SpotlightCard className="p-0">
+          <Image
+            src={pixelUrl}
+            alt="像素化"
+            width={imgWidth}
+            height={imgWidth}
+          />
+        </SpotlightCard>
         <div className="text-sm mt-4">像素化-黑白</div>
       </div>
       <div>
-        <Image
-          src={pixelColorUrl}
-          alt="像素化"
-          width={imgWidth}
-          height={imgWidth}
-          className="rounded-3xl"
-        />
+        <SpotlightCard className="p-0">
+          <Image
+            src={pixelColorUrl}
+            alt="像素化"
+            width={imgWidth}
+            height={imgWidth}
+          />
+        </SpotlightCard>
         <div className="text-sm mt-4">像素化-彩色</div>
       </div>
     </div>
@@ -57,6 +61,11 @@ const exampleList = [
     original: "/pixel-examples/panda.png",
     pixel: "/pixel-examples/panda-pixel.png",
     pixelColor: "/pixel-examples/panda-pixel-color.png",
+  },
+  {
+    original: "/pixel-examples/long.png",
+    pixel: "/pixel-examples/long-pixel.png",
+    pixelColor: "/pixel-examples/long-pixel-color.png",
   },
 ];
 
