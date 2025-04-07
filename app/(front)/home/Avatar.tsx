@@ -66,7 +66,7 @@ export default function Avatar() {
         >
           <div className="rounded-full flex">
             <div className="w-[200px] h-[200px] border rounded-full absolute pointer-events-none"></div>
-            <div className="w-[200px] h-[200px] rounded-full relative box-content m-auto group">
+            <div className="w-[200px] h-[200px] rounded-full relative box-content m-auto group :hover:scale-95">
               <div className="w-[200px] h-[200px] rounded-full overflow-hidden pointer-events-none">
                 <Image
                   src="/avatar.jpg"

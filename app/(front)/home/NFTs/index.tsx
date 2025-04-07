@@ -1,10 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import NFTCanvas from "./NFTCanvas";
+import SpotlightCard from "@/components/SpotlightCard";
 
 const NFTCard = ({ title, src }: { title: string; src: string }) => {
   return (
-    <Card className="flex flex-col bg-transparent border-slate-600">
+    <SpotlightCard className="p-0 select-none flex flex-col">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -15,16 +16,16 @@ const NFTCard = ({ title, src }: { title: string; src: string }) => {
           alt="NFT"
           width={200}
           height={200}
-          className="border"
+          className="border pointer-events-none"
         />
       </CardContent>
-    </Card>
+    </SpotlightCard>
   );
 };
 
 const NFTGallery = () => {
   return (
-    <div className="relative flex justify-around z-10 gap-4 w-full pt-20 pointer-events-none">
+    <div className="relative flex justify-around z-10 gap-4 w-full pt-20">
       <NFTCanvas />
 
       <NFTCard

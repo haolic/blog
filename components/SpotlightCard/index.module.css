@@ -1,0 +1,8 @@
+.spotlightCard {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.1s linear, box-shadow 0.1s linear;
+}
+
+.spotlightCard:hover {
+  transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+}

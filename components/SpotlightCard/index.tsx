@@ -1,38 +1,63 @@
-import { useRef, useState } from "react";
+"use client";
+
+import { cn } from "@/lib/utils";
+import { useCallback, useRef, useState } from "react";
+import styles from "./index.module.css";
+
+const rotateMaxDeg = 25;
 
 const SpotlightCard = ({
   children,
   className = "",
-  spotlightColor = "rgba(0, 200, 200, 0.25)",
+  spotlightColor = "rgba(0, 200, 200)",
 }: {
   children: React.ReactNode;
   className?: string;
   spotlightColor?: string;
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const spotlightRef = useRef<HTMLDivElement>(null);
+
   const [opacity, setOpacity] = useState(0);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!divRef.current || isFocused) return;
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!divRef.current) return;
 
-    const rect = divRef.current.getBoundingClientRect();
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
+      const rect = divRef.current.getBoundingClientRect();
+      const { width, height, left, top } = rect;
+      const x = e.clientX - left;
+      const y = e.clientY - top;
 
-  const handleFocus = () => {
-    setIsFocused(true);
-    setOpacity(0.6);
-  };
+      const xPercent = x / width;
+      const yPercent = y / height;
 
-  const handleBlur = () => {
-    setIsFocused(false);
-    setOpacity(0);
-  };
+      divRef.current.style.setProperty(
+        "--rotateY",
+        `${xPercent * rotateMaxDeg - rotateMaxDeg / 2}deg`
+      );
+      divRef.current.style.setProperty(
+        "--rotateX",
+        `${-(yPercent * rotateMaxDeg - rotateMaxDeg / 2)}deg`
+      );
+
+      const hueRotateX = xPercent * 180;
+      const hueRotateY = yPercent * 180;
+      divRef.current.style.setProperty(
+        "--hue-rotate",
+        `${hueRotateX + hueRotateY}deg`
+      );
+
+      spotlightRef.current!.style.setProperty(
+        "background",
+        `radial-gradient(circle at ${x}px ${y}px, ${spotlightColor}, transparent 80%)`
+      );
+    },
+    [spotlightColor]
+  );
 
   const handleMouseEnter = () => {
-    setOpacity(0.6);
+    setOpacity(0.3);
   };
 
   const handleMouseLeave = () => {
@@ -43,22 +68,32 @@ const SpotlightCard = ({
     <div
       ref={divRef}
       onMouseMove={handleMouseMove}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl border border-neutral-400 overflow-hidden p-8 ${className}`}
+      style={
+        {
+          "--rotateX": "10deg",
+          "--rotateY": "10deg",
+          "--hue-rotate": "0deg",
+        } as React.CSSProperties
+      }
+      className={cn(
+        "relative rounded-3xl border border-neutral-400 overflow-hidden p-8 hover:shadow-2xl",
+        className,
+        styles.spotlightCard
+      )}
     >
       <div
+        ref={spotlightRef}
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
         style={{
           opacity,
-          background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`,
+          filter: "hue-rotate(var(--hue-rotate))",
+          background: `radial-gradient(circle at 0px 0px, ${spotlightColor}, transparent 50%)`,
         }}
       />
       {children}
     </div>
   );
 };
-
 export default SpotlightCard;

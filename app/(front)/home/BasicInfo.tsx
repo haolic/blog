@@ -7,16 +7,26 @@ import SVGReact from "@/components/icons/SVGReact";
 import SVGTailwindCSS from "@/components/icons/SVGTailwindCSS";
 import SpotlightCard from "@/components/SpotlightCard";
 import { Separator } from "@/components/ui/separator";
-import { motion } from "motion/react";
+import { toast } from "sonner";
 
 export default function BasicInfo() {
+  const handleCopy = async () => {
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText("faruxue2019@163.com");
+    } else {
+      const input = document.createElement("input");
+      input.value = "faruxue2019@163.com";
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+    }
+    toast.success("邮箱已复制到剪贴板");
+  };
+
   return (
-    <SpotlightCard className="relative z-[2] border-slate-600 mt-10">
-      <motion.div
-        initial={{ opacity: 0, top: 10 }}
-        animate={{ opacity: 1, top: 0 }}
-        transition={{ duration: 1.5 }}
-      >
+    <SpotlightCard className="relative z-[2] border-slate-600 mt-10 cursor-default">
+      <div>
         <div className="space-y-1">
           <h3 className="text-3xl font-medium leading-none">Haolic</h3>
           <p className="text-sm">WEB开发工程师</p>
@@ -39,10 +49,12 @@ export default function BasicInfo() {
           </span>
           <div className="flex items-center gap-1">
             <SVGMail className="w-4 text-[#D01D00]" />
-            <span>faruxue2019@163.com</span>
+            <span className="cursor-pointer" onClick={handleCopy}>
+              faruxue2019@163.com
+            </span>
           </div>
         </div>
-      </motion.div>
+      </div>
     </SpotlightCard>
   );
 }
