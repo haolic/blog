@@ -62,17 +62,29 @@ const draw = async ({
       ctx.fillStyle = `rgba(${pixel.r}, ${pixel.g}, ${pixel.b}, ${pixel.a})`;
     }
 
+    const gap = pixelSize * 0.1;
+
     await new Promise((resolve) => {
       ctx.fillRect(
-        pixel.x,
-        pixel.y,
-        Math.max(pixelSize - 2, 2),
-        Math.max(pixelSize - 2, 2)
+        pixel.x + gap,
+        pixel.y + gap,
+        Math.max(pixelSize - gap, 2),
+        Math.max(pixelSize - gap, 2)
       );
       if (idx % Math.ceil(pixels.length / 100) === 0) {
-        setTimeout(() => {
-          resolve(true);
-        }, 1);
+        if (requestAnimationFrame) {
+          requestAnimationFrame(() => {
+            resolve(true);
+          });
+        } else if (requestIdleCallback) {
+          requestIdleCallback(() => {
+            resolve(true);
+          });
+        } else {
+          setTimeout(() => {
+            resolve(true);
+          }, 2);
+        }
       } else {
         resolve(true);
       }

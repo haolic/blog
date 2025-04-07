@@ -19,11 +19,13 @@ export const getColorPixels = async ({
   width,
   height,
   pixelXNumber = 200,
+  styleType = "normal",
 }: {
   ctx: CanvasRenderingContext2D;
   width: number;
   height: number;
   pixelXNumber?: number;
+  styleType?: "normal" | "gray";
 }) => {
   // 获取所有像素点
   const imageData = ctx.getImageData(0, 0, width, height);
@@ -48,12 +50,21 @@ export const getColorPixels = async ({
       // 检查索引是否有效
       if (index >= pixels.length) continue;
 
-      const [r, g, b, a] = [
+      let [r, g, b, a] = [
         pixels[index],
         pixels[index + 1],
         pixels[index + 2],
         pixels[index + 3],
       ];
+
+      if (styleType === "gray") {
+        const gray = (r + g + b) / 3;
+        r = gray;
+        g = gray;
+        b = gray;
+        a = a;
+      }
+
       if (r !== 0 || g !== 0 || b !== 0 || a !== 0) {
         pixelArray.push({
           x: j,

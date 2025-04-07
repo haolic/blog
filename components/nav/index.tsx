@@ -3,8 +3,7 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { House, Rss, Icon } from "lucide-react";
-import { caseSnakeUpper } from "@lucide/lab";
+import { House, Rss, Grid2x2 } from "lucide-react";
 const navList = [
   {
     name: "Home",
@@ -19,7 +18,7 @@ const navList = [
   {
     name: "Pixel Image",
     path: "/pixel-image",
-    icon: <Icon iconNode={caseSnakeUpper} size={18} />,
+    icon: <Grid2x2 size={18} />,
   },
 ];
 
