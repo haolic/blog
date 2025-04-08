@@ -4,5 +4,5 @@
 }
 
 .spotlightCard:hover {
-  transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+  transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY)) translateY(-2px);
 }

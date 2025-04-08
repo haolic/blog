@@ -16,9 +16,9 @@ export default function Avatar() {
   const calcBodyScroll = useCallback(() => {
     const scrollY = window.scrollY;
     // 控制0-362的高度的动画。
-    if (scrollY <= 362) {
+    if (scrollY < 362) {
       wrapRef.current?.style.setProperty("--delay", `-${scrollY}s`);
-    } else {
+    } else if (scrollY > 362) {
       wrapRef.current?.style.setProperty("--delay", "-362s");
     }
   }, []);

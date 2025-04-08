@@ -1,7 +1,7 @@
 export default function Introduce() {
   return (
     <>
-      <h1 className="inline m-auto text-2xl font-bold sticky top-1 z-10 bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-size-200 bg-no-repeat">
+      <h1 className="inline m-auto text-5xl font-bold bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-size-200 bg-no-repeat">
         像素化图片生成器
       </h1>
 
