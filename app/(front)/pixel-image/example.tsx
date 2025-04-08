@@ -1,6 +1,9 @@
 import SpotlightCard from "@/components/SpotlightCard";
 import Image from "next/image";
 
+import styles from "./example.module.css";
+import { cn } from "@/lib/utils";
+
 const imgWidth = 330;
 
 const ExampleItem = ({
@@ -67,12 +70,20 @@ const exampleList = [
     pixel: "/pixel-examples/long-pixel.png",
     pixelColor: "/pixel-examples/long-pixel-color.png",
   },
+  {
+    original: "/pixel-examples/meimei.png",
+    pixel: "/pixel-examples/meimei-pixel.png",
+    pixelColor: "/pixel-examples/meimei-pixel-color.png",
+  },
 ];
 
 export default function Example() {
   return (
-    <div>
+    <div className={cn(styles.example,"pb-14 px-4")}>
       <h1 className="text-4xl font-bold mt-12 text-cyan-300">探索像素艺术</h1>
+      <p className="text-sm text-gray-500 mt-4">
+        以下是一些像素化图片的示例，你可以上传自己的图片，预览像素化效果。
+      </p>
       {exampleList.map((item) => (
         <ExampleItem
           key={item.original}

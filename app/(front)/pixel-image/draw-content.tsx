@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getColorPixels } from "@/lib/utils";
 import draw from "./draw";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-const accept = "image/png,image/jpeg,image/gif,image/webp";
+const accept = "image/png,image/jpeg,image/webp";
 
 export default function DrawContent() {
   const [image, setImage] = useState<File | null>(null);
@@ -55,6 +55,50 @@ export default function DrawContent() {
     },
     []
   );
+
+  const handleDraw = useCallback(() => {
+    drawPixelImage({
+      width: canvasRef.current!.width,
+      height: canvasRef.current!.height,
+      ctx: canvasRef.current!.getContext("2d")!,
+      pixelXNumber,
+      type: styleType,
+    });
+  }, [drawPixelImage, pixelXNumber, styleType]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (items) {
+        if (items[0].type.indexOf("image") !== -1) {
+          const blob = items[0].getAsFile();
+          if (blob) {
+            setImage(blob);
+            const canvas = canvasRef.current!;
+            const ctx = canvas.getContext("2d")!;
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const img = new Image();
+              img.onload = function () {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+              };
+              img.src = event.target?.result as string;
+              setTimeout(() => {
+                handleDraw();
+              }, 100);
+            };
+            reader.readAsDataURL(blob);
+          }
+        }
+      }
+    };
+    window.addEventListener("paste", handlePaste);
+    return () => {
+      window.removeEventListener("paste", handlePaste);
+    };
+  }, [handleDraw]);
 
   const handleChange = useCallback(
     async (e?: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,18 +152,9 @@ export default function DrawContent() {
     setStyleType(value);
   };
 
-  const handleDraw = () => {
-    drawPixelImage({
-      width: canvasRef.current!.width,
-      height: canvasRef.current!.height,
-      ctx: canvasRef.current!.getContext("2d")!,
-      pixelXNumber,
-      type: styleType,
-    });
-  };
   return (
-    <>
-      <div className="p-6 border-none rounded-3xl w-[800px] mx-auto mt-7 bg-violet-50 bg-opacity-30">
+    <div className="px-4">
+      <div className="relative p-11 border-none rounded-3xl w-3/4 max-w-[800px] mx-auto mt-7 bg-gradient-to-br from-purple-400/5 via-purple-400/20 to-purple-400/5">
         <Input
           id="image-input"
           type="file"
@@ -127,19 +162,21 @@ export default function DrawContent() {
           onChange={handleChange}
           className="hidden"
         />
-        <Button
+        <div
           onClick={() => {
             const input = document.getElementById("image-input");
             input?.click();
           }}
-          variant="outline"
-          className={cn("h-36 w-full rounded-3xl", {
-            hidden: !!image,
-          })}
+          className={cn(
+            "p-4 w-full rounded-3xl z-10 relative flex items-center justify-center gap-2 text-2xl cursor-pointer",
+            {
+              hidden: !!image,
+            }
+          )}
         >
           <ImageUp />
           上传图片
-        </Button>
+        </div>
 
         <div
           className={cn({
@@ -165,8 +202,8 @@ export default function DrawContent() {
           />
 
           <div className="flex flex-col items-center gap-2 mt-6">
-            <div className="flex items-center gap-2 w-1/2">
-              <span className="text-sm break-keep w-[75px] text-right">
+            <div className="flex flex-col items-center gap-2 w-1/2 sm:flex-row">
+              <span className="text-sm break-keep w-[75px] sm:text-right">
                 水平像素数
               </span>
               <Input
@@ -179,8 +216,8 @@ export default function DrawContent() {
               />
             </div>
 
-            <div className="flex items-center gap-2 w-1/2">
-              <span className="text-sm break-keep w-[75px] text-right">
+            <div className="flex flex-col items-center gap-2 w-1/2 sm:flex-row">
+              <span className="text-sm break-keep w-[75px] sm:text-right">
                 风格
               </span>
               <RadioGroup
@@ -190,11 +227,15 @@ export default function DrawContent() {
               >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="normal" id="normal-style" />
-                  <Label htmlFor="normal-style">正常</Label>
+                  <Label htmlFor="normal-style" className="whitespace-nowrap">
+                    正常
+                  </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="gray" id="gray-style" />
-                  <Label htmlFor="gray-style">黑白</Label>
+                  <Label htmlFor="gray-style" className="whitespace-nowrap">
+                    黑白
+                  </Label>
                 </div>
               </RadioGroup>
             </div>
@@ -210,9 +251,14 @@ export default function DrawContent() {
       </div>
 
       <div
-        className="w-full h-[600px] flex justify-center items-center mt-7"
+        className={cn(
+          "max-w-[800px] h-[600px] flex justify-center items-center mt-7 mx-auto",
+          {
+            hidden: !image,
+          }
+        )}
         ref={containerRef}
       />
-    </>
+    </div>
   );
 }
