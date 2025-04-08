@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import styles from "./example.module.css";
 import { cn } from "@/lib/utils";
+import { CornerLeftUp } from "lucide-react";
 
 const imgWidth = 330;
 
@@ -79,7 +80,19 @@ const exampleList = [
 
 export default function Example() {
   return (
-    <div className={cn(styles.example,"pb-14 px-4")}>
+    <div className={cn(styles.example, "pb-14 px-4 relative")}>
+      <div
+        className={cn(
+          "absolute top-10 left-1/2 text-purple-500 blur-2xl pointer-events-none -rotate-100 z-[-1]",
+          styles.bgColorPart
+        )}
+      >
+        <CornerLeftUp size={200} />
+      </div>
+      <div className="absolute top-96 left-1/3 text-purple-500 blur-2xl pointer-events-none -rotate-100 z-[-1]">
+        <CornerLeftUp size={200} />
+      </div>
+
       <h1 className="text-4xl font-bold mt-12 text-cyan-300">探索像素艺术</h1>
       <p className="text-sm text-gray-500 mt-4">
         以下是一些像素化图片的示例，你可以上传自己的图片，预览像素化效果。

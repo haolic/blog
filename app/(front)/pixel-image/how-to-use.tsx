@@ -1,8 +1,15 @@
-import { DraftingCompass, ImageDown } from "lucide-react";
+import { CheckCheck, DraftingCompass, Feather, ImageDown } from "lucide-react";
 
 export default function HowToUse() {
   return (
-    <div className="max-w-[800px] mx-auto mt-7 text-left px-4 pb-14">
+    <div className="max-w-[800px] mx-auto mt-7 text-left px-4 pb-14 relative">
+      <div className="absolute -top-10 -left-10 text-purple-500 blur-lg pointer-events-none z-[-1]">
+        <CheckCheck size={140} />
+      </div>
+
+      <div className="absolute bottom-10 right-10 text-pink-500 blur-xl pointer-events-none z-[-1]">
+        <Feather size={140} />
+      </div>
       <h1 className="text-5xl font-bold">如何使用像素风格图片生成器</h1>
       <p className="text-2xl text-gray-500 mt-4">
         简单两步，就可以生成像素化风格的图片。
