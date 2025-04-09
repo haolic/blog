@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 
+import MarkdownCode from "./markdown-code";
+
 const markdownComponents = {
   h1: ({ children }: { children?: React.ReactNode }) => (
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
@@ -67,17 +69,20 @@ const markdownComponents = {
     children?: React.ReactNode;
     className?: string;
   }) => {
-    return (
+    return !className ? (
       <code
         className={cn(
           "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold overflow-auto",
           {
             block: className,
-          }
+          },
+          className
         )}
       >
         {children}
       </code>
+    ) : (
+      <MarkdownCode className={className}>{children}</MarkdownCode>
     );
   },
 };

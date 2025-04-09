@@ -51,7 +51,7 @@ export default async function BlogDetail({
         </div>
       </div>
       <div
-        className={cn("mdx-wrap", {
+        className={cn("mdx-wrap p-4", {
           "text-xl font-bold": category === CategorysEnum.墨者无疆,
           "[&>p]:[text-indent:2em]": category === CategorysEnum.赶路,
         })}
