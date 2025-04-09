@@ -1,6 +1,18 @@
+import { CornerLeftUp } from "lucide-react";
+import styles from "./intorduce.module.css";
+import { cn } from "@/lib/utils";
+
 export default function Introduce() {
   return (
     <div className="px-4">
+      <div
+        className={cn(
+          "absolute top-10 left-1/2 w-0 text-yellow-500 blur-2xl pointer-events-none -rotate-100 z-[-1]",
+          styles.bgColorPart
+        )}
+      >
+        <CornerLeftUp size={200} />
+      </div>
       <h1 className="inline m-auto text-5xl font-bold bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-size-200 bg-no-repeat">
         像素化图片生成器
       </h1>

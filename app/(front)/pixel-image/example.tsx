@@ -83,7 +83,7 @@ export default function Example() {
     <div className={cn(styles.example, "pb-14 px-4 relative")}>
       <div
         className={cn(
-          "absolute top-10 left-1/2 text-purple-500 blur-2xl pointer-events-none -rotate-100 z-[-1]",
+          "absolute top-10 left-1/2 w-0 text-purple-500 blur-2xl pointer-events-none -rotate-100 z-[-1]",
           styles.bgColorPart
         )}
       >

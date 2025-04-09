@@ -5,7 +5,7 @@ import HowToUse from "./how-to-use";
 
 const PixelImage = () => {
   return (
-    <div className="w-full flex flex-col h-dvh box-border text-center bg-pink-200 bg-opacity-15 overflow-y-auto relative">
+    <div className="w-full overflow-x-hidden flex flex-col h-dvh box-border text-center bg-pink-200 bg-opacity-15 overflow-y-auto relative">
       <div className="min-h-28" />
       <Introduce />
 
