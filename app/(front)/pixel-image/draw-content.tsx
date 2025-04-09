@@ -154,7 +154,7 @@ export default function DrawContent() {
 
   return (
     <div className="px-4">
-      <div className="relative p-11 border-none rounded-3xl w-3/4 max-w-[800px] mx-auto mt-7 bg-gradient-to-br from-purple-400/5 via-purple-400/20 to-purple-400/5">
+      <div className="relative py-11 px-1 border-none rounded-3xl w-3/4 max-w-[800px] mx-auto mt-7 bg-gradient-to-br from-purple-400/5 via-purple-400/20 to-purple-400/5">
         <Input
           id="image-input"
           type="file"
