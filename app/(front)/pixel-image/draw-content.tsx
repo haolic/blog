@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getColorPixels } from "@/lib/utils";
 import draw from "./draw";
 import { Button } from "@/components/ui/button";
-import { ImageUp, RotateCcw } from "lucide-react";
+import { ImageDown, ImageUp, RotateCcw } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
@@ -212,7 +212,7 @@ export default function DrawContent() {
                 className="flex-1"
                 min={5}
                 placeholder="像素数"
-                value={pixelXNumber}
+                value={pixelXNumber || ""}
               />
             </div>
 
@@ -259,6 +259,21 @@ export default function DrawContent() {
         )}
         ref={containerRef}
       />
+      {image && (
+        <Button
+          onClick={() => {
+            const canvas = containerRef.current!.querySelector("canvas");
+            const link = document.createElement("a");
+            link.href = canvas!.toDataURL();
+            link.download = `${image?.name}-pixel-${new Date().getTime()}.png`;
+            link.click();
+          }}
+          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white mt-6"
+        >
+          <ImageDown />
+          下载生成的图片
+        </Button>
+      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { CheckCheck, DraftingCompass, Feather, ImageDown } from "lucide-react";
 
 export default function HowToUse() {
@@ -22,7 +23,7 @@ export default function HowToUse() {
         />
         上传您的图片
       </h2>
-      <p className="text-xl text-gray-500 mt-2 px-10">
+      <p className="text-xl text-gray-500 mt-4 px-10">
         点击“上传图片”按钮，选择您想要像素化的图片，生成器支持多种格式，包括png、jpg、webp等。
       </p>
       <h2 className="text-3xl font-bold mt-16 flex items-center gap-2">
@@ -33,8 +34,16 @@ export default function HowToUse() {
         />
         下载生成的图片
       </h2>
-      <p className="text-xl text-gray-500 mt-2 px-10">
-        生成图片后，右键点击图片或手机端长按，即可选择保存到您的电脑或手机，所有生成的像素风格图片都归您所有，可随意使用，用作社交头像，分享到社交媒体平台等。
+      <p className="text-xl text-gray-500 mt-4 px-10">
+        生成图片后，右键点击图片或点击图片下方
+        <Button
+          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white h-6 mx-1"
+          size="sm"
+        >
+          <ImageDown />
+          下载生成的图片
+        </Button>
+        即可选择保存到您的电脑或手机，所有生成的像素风格图片都归您所有，可随意使用，用作社交头像，分享到社交媒体平台等。
       </p>
     </div>
   );
