@@ -168,7 +168,7 @@ export default function DrawContent() {
             input?.click();
           }}
           className={cn(
-            "p-4 w-full rounded-3xl z-10 relative flex items-center justify-center gap-2 text-2xl cursor-pointer",
+            "p-4 w-full rounded-3xl z-10 relative flex items-center justify-center gap-2 text-2xl cursor-pointer opacity-60",
             {
               hidden: !!image,
             }
