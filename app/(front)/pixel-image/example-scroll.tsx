@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import styles from "./example-scroll.module.css";
@@ -59,78 +57,72 @@ imgList.forEach((item) => {
 });
 
 const ExampleScroll = () => {
-  const list1 = renderList.sort(() => Math.random() - 0.5);
-  const list2 = renderList.sort(() => Math.random() - 0.5);
-  const list3 = renderList.sort(() => Math.random() - 0.5);
+  const shuffledList = renderList.sort(() => Math.random() - 0.5);
+
+  const shuffledList2 = [...shuffledList].sort(() => Math.random() - 0.5); // 第二个打乱
+  const shuffledList3 = [...shuffledList].sort(() => Math.random() - 0.5); // 第三个打乱
 
   return (
-    <div className="min-h-[500px] translate-y-20">
-      <div className="-rotate-12">
-        <div className={cn("flex gap-2", styles.exampleList)}>
-          {list1.map((item, index) => (
-            <Image
-              key={`${item}1-1-${index}`}
-              src={item}
-              alt={item}
-              width={100}
-              height={100}
-            />
-          ))}
-          {list1.map((item, index) => (
-            <Image
-              key={`${item}1-2-${index}`}
-              src={item}
-              alt={item}
-              width={100}
-              height={100}
-            />
-          ))}
-        </div>
+    <div>
+      <div className={cn("flex gap-2", styles.exampleList)}>
+        {shuffledList.map((item, index) => (
+          <Image
+            key={`${item}1-1-${index}`}
+            src={item}
+            alt={item}
+            width={100}
+            height={100}
+          />
+        ))}
+        {shuffledList.map((item, index) => (
+          <Image
+            key={`${item}1-2-${index}`}
+            src={item}
+            alt={item}
+            width={100}
+            height={100}
+          />
+        ))}
       </div>
-      <div className="-rotate-12">
-        <div className={cn("flex gap-2 mt-2", styles.exampleList2)}>
-          {list2.map((item, index) => (
-            <Image
-              key={`${item}2-1-${index}`}
-              src={item}
-              alt={item}
-              width={100}
-              height={100}
-            />
-          ))}
-          {list2.map((item, index) => (
-            <Image
-              key={`${item}2-2-${index}`}
-              src={item}
-              alt={item}
-              width={100}
-              height={100}
-            />
-          ))}
-        </div>
+      <div className={cn("flex gap-2 mt-2", styles.exampleList2)}>
+        {shuffledList2.map((item, index) => (
+          <Image
+            key={`${item}2-1-${index}`}
+            src={item}
+            alt={item}
+            width={100}
+            height={100}
+          />
+        ))}
+        {shuffledList2.map((item, index) => (
+          <Image
+            key={`${item}2-2-${index}`}
+            src={item}
+            alt={item}
+            width={100}
+            height={100}
+          />
+        ))}
       </div>
-
-      <div className="-rotate-12">
-        <div className={cn("flex gap-2 mt-2", styles.exampleList)}>
-          {list3.map((item, index) => (
-            <Image
-              key={`${item}3-1-${index} `}
-              src={item}
-              alt={item}
-              width={100}
-              height={100}
-            />
-          ))}
-          {list3.map((item, index) => (
-            <Image
-              key={`${item}3-2-${index}`}
-              src={item}
-              alt={item}
-              width={100}
-              height={100}
-            />
-          ))}
-        </div>
+      <div className={cn("flex gap-2 mt-2", styles.exampleList3)}>
+        {shuffledList3.map((item, index) => (
+          <Image
+            key={`${item}3-1-${index} `}
+            src={item}
+            alt={item}
+            width={100}
+            height={100}
+          />
+        ))}
+        {shuffledList3.map((item, index) => (
+          <Image
+            key={`${item}3-2-${index}`}
+            src={item}
+            alt={item}
+            width={100}
+            height={100}
+          />
+        ))}
       </div>
     </div>
   );

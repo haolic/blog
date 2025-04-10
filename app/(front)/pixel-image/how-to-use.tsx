@@ -3,7 +3,7 @@ import { CheckCheck, DraftingCompass, Feather, ImageDown } from "lucide-react";
 
 export default function HowToUse() {
   return (
-    <div className="max-w-[800px] mx-auto mt-7 text-left px-4 pb-14 relative">
+    <div className="max-w-[800px] mx-auto mt-20 text-left px-4 pb-14 relative">
       <div className="absolute -top-10 -left-10 text-purple-500 blur-lg pointer-events-none z-[-1]">
         <CheckCheck size={140} />
       </div>
