@@ -29,7 +29,7 @@ export default function BasicInfo() {
       <div>
         <div className="space-y-1">
           <h3 className="text-3xl font-medium leading-none">{`Haolic`}</h3>
-          <p className="text-sm">{`WEB开发工程师 (寻找岗位中)`}</p>
+          <p className="text-sm">{`WEB开发工程师`}</p>
         </div>
         <Separator className="my-4 bg-slate-600" />
         <div className="flex min-h-5 items-center gap-4 text-sm flex-wrap">
