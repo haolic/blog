@@ -6,6 +6,7 @@ import styles from "./Avatar.module.css";
 import { cn } from "@/lib/utils";
 import { Hand } from "lucide-react";
 import AvatarImg from "./AvatarImg";
+import AvatarAnimation from "./AvatarAnimation";
 
 export default function Avatar() {
   const constraintsRef = useRef<HTMLDivElement>(null);
@@ -43,10 +44,9 @@ export default function Avatar() {
   return (
     <div ref={wrapRef}>
       <div className="w-[200px] h-[200px]"></div>
-      <AvatarImg
-        width={28}
-        height={28}
-        className={cn("fixed top-[4px] left-1/2 -translate-x-1/2 z-20", {
+
+      <AvatarAnimation
+        className={cn({
           "opacity-0": !inited || !avatarInTop,
         })}
       />
