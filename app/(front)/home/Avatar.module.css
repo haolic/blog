@@ -1,11 +1,11 @@
 .avatar-drag-container {
-  animation: avatar-drag-container-animation 363s ease-out paused;
+  animation: avatar-drag-container-animation 201s ease-out paused;
   transform-origin: top center;
   animation-delay: var(--delay);
 }
 
 .avatar-drag-hand {
-  animation: avatar-drag-hand-animation 363s ease-out paused;
+  animation: avatar-drag-hand-animation 201s ease-out paused;
   animation-delay: var(--delay);
 }
 
@@ -23,7 +23,7 @@
 
 @keyframes avatar-drag-hand-animation {
   0% {
-    opacity: 0.3; 
+    opacity: 0.3;
   }
 
   20% {
