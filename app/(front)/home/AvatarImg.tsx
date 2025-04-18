@@ -34,6 +34,7 @@ const AvatarImg = ({
           width={width}
           height={height}
           className="pointer-events-none"
+          priority
         />
       </div>
 
