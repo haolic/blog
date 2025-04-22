@@ -2,7 +2,6 @@ import Introduce from "./intorduce";
 import DrawContent from "./draw-content";
 import Example from "./example";
 import HowToUse from "./how-to-use";
-import ExampleScroll from "./example-scroll";
 
 const PixelImage = () => {
   return (
@@ -13,8 +12,6 @@ const PixelImage = () => {
       <DrawContent />
 
       <Example />
-
-      <ExampleScroll />
 
       <HowToUse />
     </div>
